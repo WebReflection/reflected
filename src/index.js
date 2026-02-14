@@ -1,13 +1,16 @@
-import withResolvers from '/node_modules/@webreflection/utils/src/with-resolvers.js';
+import { native } from '@webreflection/utils/shared-array-buffer';
+import withResolvers from '@webreflection/utils/with-resolvers';
 
-let module;
+let channel, module;
 
 if ('importScripts' in globalThis) {
   let get;
   const { promise, resolve } = withResolvers();
   const reflected = new URL(location).searchParams.get('reflected');
-  if (reflected === 'chrome') get = import('./worker/chrome.js');
-  else if (reflected === 'firefox') get = import('./worker/firefox.js');
+  channel = reflected;
+  if (reflected === 'message') get = import(/* webpackIgnore: true */'./worker/message.js');
+  else if (reflected === 'broadcast') get = import(/* webpackIgnore: true */'./worker/broadcast.js');
+  else if (reflected === 'service') get = import(/* webpackIgnore: true */'./worker/service.js');
   module = async options => {
     const { data, ports } = await promise;
     const { default: reflect } = await get;
@@ -19,11 +22,21 @@ if ('importScripts' in globalThis) {
   };
   addEventListener('message', resolve, { once: true });
 }
-else if ('InstallTrigger' in globalThis) {
-  module = (await import('./main/firefox.js')).default;
+else if (native) {
+  if ('InstallTrigger' in globalThis) {
+    channel = 'broadcast';
+    module = (await import(/* webpackIgnore: true */'./main/broadcast.js')).default;
+  }
+  else {
+    channel = 'message';
+    module = (await import(/* webpackIgnore: true */'./main/message.js')).default;
+  }
 }
 else {
-  module = (await import('./main/chrome.js')).default;
+  channel = 'service';
+  module = (await import(/* webpackIgnore: true */'./main/service.js')).default;
 }
+
+export { channel };
 
 export default module;

@@ -1,4 +1,4 @@
-import withResolvers from '/node_modules/@webreflection/utils/src/with-resolvers.js';
+import withResolvers from '@webreflection/utils/with-resolvers';
 
 const { load, store, wait } = Atomics;
 

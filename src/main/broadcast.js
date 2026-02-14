@@ -1,22 +1,23 @@
 import { SAB, handler, post, url, withResolvers } from './shared.js';
 
 class Worker extends globalThis.Worker {
-  #ready;
-  constructor(scriptURL, options) {
+  constructor(scriptURL, options, resolve) {
     const channel = crypto.randomUUID();
     const bc = new BroadcastChannel(channel);
-    const { promise, resolve } = withResolvers();
     const sab = SAB(options);
-    bc.addEventListener('message', handler(sab, options));
-    super(url(scriptURL, 'firefox'), { ...options, type: 'module' });
+    bc.addEventListener('message', handler(sab, options, true));
+    super(url(scriptURL, 'broadcast'), { ...options, type: 'module' });
     super.addEventListener('message', () => resolve(this), { once: true });
     super.postMessage(post(sab, options).concat(channel));
-    this.#ready = promise;
   }
 
-  get ready() {
-    return this.#ready;
+  get channel() {
+    return 'broadcast';
   }
 };
 
-export default (scriptURL, options) => new Worker(scriptURL, options).ready;
+export default (scriptURL, options) => {
+  const { promise, resolve } = withResolvers();
+  new Worker(scriptURL, options, resolve);
+  return promise;
+};

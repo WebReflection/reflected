@@ -2,7 +2,9 @@ import { handler, withResolvers } from './shared.js';
 
 const { promise, resolve } = withResolvers();
 
+export const channel = 'message';
+
 export default handler(
   promise,
-  ({ data: [sab, main, channel] }) => resolve([sab, main, new BroadcastChannel(channel)]),
+  ({ data: [sab, main], ports: [channel] }) => resolve([sab, main, channel])
 );

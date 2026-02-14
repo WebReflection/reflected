@@ -1,4 +1,4 @@
-import reflected from '../src/index.js';
+import reflected, { channel } from '../dist/index.js';
 
 const sync = await reflected({
   ondata: (data, ...rest) => {
@@ -7,4 +7,10 @@ const sync = await reflected({
   }
 });
 
-console.log('result', sync('test'));
+// for (let i = 0; i < 4; i++) sync('test');
+
+console.time('sync');
+const result = sync('test');
+console.timeEnd('sync');
+
+console.log(channel, result);
