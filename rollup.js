@@ -36,4 +36,12 @@ export default [
       dir: './dist'
     }
   },
+  {
+    plugins,
+    input: './src/service/worker.js',
+    output: {
+      esModule: true,
+      file: './dist/sw.js'
+    }
+  },
 ];

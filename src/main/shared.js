@@ -1,9 +1,8 @@
 import withResolvers from '@webreflection/utils/with-resolvers';
 
 const { notify, store } = Atomics;
-const { isView } = ArrayBuffer;
 
-const minByteLength = Int32Array.BYTES_PER_ELEMENT * 2;
+export const minByteLength = Int32Array.BYTES_PER_ELEMENT * 2;
 
 export const SAB = ({
   initByteLength = 1024,
@@ -16,27 +15,46 @@ export const SAB = ({
 
 export const handler = (sab, options, useAtomics) => {
   const i32a = new Int32Array(sab);
-  return async ({ data }, ...rest) => {
-    let result = await options.ondata(data, ...rest);
-    if (!isView(result)) result = new Int32Array(result);
-    const { byteLength } = result.buffer;
-    const requiredByteLength = minByteLength + byteLength;
+  return async ({ data }) => {
+    const result = await options.ondata(data);
+    const length = result.length;
+    const requiredByteLength = minByteLength + result.buffer.byteLength;
     if (sab.byteLength < requiredByteLength) sab.grow(requiredByteLength);
     i32a.set(result, 2);
     if (useAtomics) {
-      store(i32a, 1, result.length);
+      store(i32a, 1, length);
       store(i32a, 0, 1);
       notify(i32a, 0);
+    }
+    else {
+      i32a[1] = length;
+      i32a[0] = 1;
     }
   };
 };
 
-export const post = (sab, options) => [sab, { ...options, ondata: void 0 }];
+const isOK = value => {
+  switch (typeof value) {
+    case 'symbol':
+    case 'function':
+      return false;
+  }
+  return true;
+};
 
-export const url = (scriptURL, reflected) => {
+export const post = (sab, options) => {
+  const opts = {};
+  for (const key in options) {
+    const value = options[key];
+    if (isOK(key) && isOK(value)) opts[key] = value;
+  }
+  return [sab, opts];
+};
+
+export const url = (scriptURL, reflected, options) => {
   const url = new URL(scriptURL, location.href);
   url.searchParams.set('reflected', reflected);
-  return url;
+  return [url, { ...options, type: 'module' }];
 };
 
 export { withResolvers };

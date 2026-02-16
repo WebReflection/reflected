@@ -16,14 +16,16 @@
     "./package.json": "./package.json"
   },
   "scripts": {
-    "build": "rm -rf dist && rollup -c rollup.js"
+    "build": "rm -rf dist && rollup -c rollup.js && cp dist/sw.js test/sw.js"
   },
   "keywords": [],
   "author": "Andrea Giammarchi",
   "license": "MIT",
   "type": "module",
   "dependencies": {
-    "@webreflection/utils": "^0.1.2"
+    "@webreflection/utils": "^0.1.2",
+    "next-resolver": "^0.1.6",
+    "weak-id": "^0.2.1"
   },
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^16.0.3",

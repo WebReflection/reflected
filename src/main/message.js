@@ -6,7 +6,7 @@ class Worker extends globalThis.Worker {
     const sab = SAB(options);
     port1.addEventListener('message', handler(sab, options, true));
     port1.start();
-    super(url(scriptURL, 'message'), { ...options, type: 'module' });
+    super(...url(scriptURL, 'message', options));
     super.addEventListener('message', () => resolve(this), { once: true });
     super.postMessage(post(sab, options), [port2]);
   }

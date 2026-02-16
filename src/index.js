@@ -32,9 +32,13 @@ else if (native) {
     module = (await import(/* webpackIgnore: true */'./main/message.js')).default;
   }
 }
-else {
+else if (navigator.serviceWorker) {
   channel = 'service';
   module = (await import(/* webpackIgnore: true */'./main/service.js')).default;
+}
+else {
+  channel = 'fallback';
+  module = () => {};
 }
 
 export { channel };

@@ -6,7 +6,7 @@ class Worker extends globalThis.Worker {
     const bc = new BroadcastChannel(channel);
     const sab = SAB(options);
     bc.addEventListener('message', handler(sab, options, true));
-    super(url(scriptURL, 'broadcast'), { ...options, type: 'module' });
+    super(...url(scriptURL, 'broadcast', options));
     super.addEventListener('message', () => resolve(this), { once: true });
     super.postMessage(post(sab, options).concat(channel));
   }
