@@ -1,6 +1,6 @@
 {
   "name": "reflected",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A primitive to allow workers to call synchronously any functionality exposed on the main thread.",
   "exports": {
     ".": {
