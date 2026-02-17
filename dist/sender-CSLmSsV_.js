@@ -1,1 +1,0 @@
-import{S as a}from"./channel-BXT2nbj7.js";const{isArray:s}=Array;var e=e=>(addEventListener("message",async t=>{const{data:n}=t;if(s(n)&&n[0]===a){t.stopImmediatePropagation(),t.preventDefault();const[s,o]=n[1];postMessage([a,[s,await e.onsend(o)]])}}),e);export{e as s};

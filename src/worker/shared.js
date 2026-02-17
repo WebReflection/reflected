@@ -5,7 +5,7 @@ const { load, store, wait } = Atomics;
 /**
  * @typedef {Object} Options
  * @property {(data: Int32Array) => unknown} ondata transforms the resulting `Int32Array` from *main* thread into a value usable within the worker.
- * @property {(data: unknown) => unknown} onsend invoked to define what to return to the *main* thread when it calls `worker.send(data)`.
+ * @property {(data: unknown) => Promise<unknown>} onsend invoked to define what to return to the *main* thread when it calls `worker.send(data)`.
  */
 
 /**

@@ -7,5 +7,5 @@ export type Options = {
     /**
      * invoked to define what to return to the *main* thread when it calls `worker.send(data)`.
      */
-    onsend: (data: unknown) => unknown;
+    onsend: (data: unknown) => Promise<unknown>;
 };

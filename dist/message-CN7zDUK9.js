@@ -1,1 +1,0 @@
-import{w as s}from"./with-resolvers-CHEvl4oe.js";import{h as r}from"./shared-BWEgJP9q.js";import"./sender-CSLmSsV_.js";import"./channel-BXT2nbj7.js";const{promise:e,resolve:o}=s(),a="message";var t=r(e,({data:[s,r],ports:[e]})=>o([s,r,e]));export{a as channel,t as default};
