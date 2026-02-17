@@ -1,4 +1,4 @@
-import reflect, { channel } from '../dist/index.js';
+import reflect, { channel } from '../../dist/index.js';
 
 // ℹ️ must await the initialization
 const reflected = await reflect({

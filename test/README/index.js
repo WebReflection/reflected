@@ -1,13 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>body{font-family:sans-serif}</style>
-  <title>reflected README</title>
-  <script src="mini-coi.js"></script>
-  <script type="module">
-import reflect, { channel } from '../dist/index.js';
+import reflect, { channel } from '../../dist/index.js';
 
 function test_sum(...args) {
   let i = 0;
@@ -19,7 +10,7 @@ function test_sum(...args) {
 // ℹ️ must await the initialization
 const worker = await reflect(
   // Worker scriptURL
-  './readme.js',
+  './worker.js',
   // Worker options + required utilities / helpers
   // ℹ️ type is enforced to be 'module' due top-level await
   {
@@ -61,6 +52,3 @@ const worker = await reflect(
 
 document.body.append(channel, ' ');
 document.body.append(JSON.stringify(await worker.send({ any: 'payload' })));
-  </script>
-</head>
-</html>

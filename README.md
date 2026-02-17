@@ -124,4 +124,4 @@ const worker = await reflect(
 const value = await worker.send({ any: 'payload' });
 ```
 
-Test [live](https://webreflection.github.io/reflected/test/readme.html) or read the [main thread](./test/readme.html) and [worker thread](./test/readme.js) code.
+Test [live](https://webreflection.github.io/reflected/test/README/) or read the [main thread](./test/README/index.js) and [worker thread](./test/README/worker.js) code.
