@@ -38,6 +38,7 @@ const activate = (swc, options) => {
       const { controller } = swc;
       c = c && !!controller;
       w = (r.installing || r.waiting || r.active);
+      if (!w) return activate(swc, options);
       if (w.state === 'activated') {
         if (c) {
           // allow ServiceWorker swap on different URL
@@ -59,7 +60,10 @@ class Worker extends Sender {
     if (init) {
       init = false;
       let { serviceWorker } = options;
-      if (!serviceWorker) return new AsyncWorker(scriptURL, options, resolve);
+      if (!serviceWorker) {
+        // @ts-ignore
+        return new AsyncWorker(scriptURL, options, resolve);
+      }
       if (typeof serviceWorker === 'string') serviceWorker = { url: serviceWorker };
       serviceWorker.url = new URL(serviceWorker.url, location.href).href;
       activate(navigator.serviceWorker, serviceWorker);

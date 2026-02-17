@@ -26,6 +26,7 @@ const handle = (channel, i32a, options) => {
     const { promise, resolve } = withResolvers();
     const id = next();
     map.set(id, [resolve, rest]);
+    // @ts-ignore
     bc.postMessage([id, data], ...rest);
     return promise;
   };

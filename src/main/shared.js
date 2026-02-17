@@ -13,10 +13,40 @@ export const SAB = ({
     { maxByteLength: minByteLength + maxByteLength }
   );
 
-export const bootstrap = Worker => (scriptURL, options) => {
-  const { promise, resolve } = withResolvers();
-  new Worker(scriptURL, options, resolve);
-  return promise;
+/**
+ * @typedef {Object} ServiceWorkerOptions see https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerContainer/register#options
+ * @property {string} [url] will use the `serviceWorker` value if that is a `string`, otherwise it refers to where the service worker file is located.
+ * @property {'classic' | 'module'} [type]
+ * @property {'all' | 'imports' | 'none'} [updateViaCache]
+ */
+
+/**
+ * @typedef {Object} Options
+ * @property {(data: unknown) => Promise<Int32Array>} ondata invoked when the worker expect a response as `Int32Array` to populate the SharedArrayBuffer with.
+ * @property {(data: unknown) => unknown} [onsend] invoked when the worker replies to a `worker.send(data)` call.
+ * @property {number} [initByteLength=1024] defines the initial byte length of the SharedArrayBuffer.
+ * @property {number} [maxByteLength=8192] defines the maximum byte length (growth) of the SharedArrayBuffer.
+ * @property {string | ServiceWorkerOptions} [serviceWorker] defines the service worker to use as fallback if SharedArrayBuffer is not supported. If not defined, the `async` fallback will be used so that no `sync` operations from the worker will be possible.
+ */
+
+/**
+ * Initialize the worker channel communication and resolves with the worker instance.
+ * @template T
+ * @param {T} Worker
+ * @returns
+ */
+export const bootstrap = Worker => {
+  /**
+   * @param {string} scriptURL
+   * @param {Options} options
+   * @returns
+   */
+  return (scriptURL, options) => {
+    const { promise, resolve } = withResolvers();
+    // @ts-ignore
+    new Worker(scriptURL, options, resolve);
+    return /** @type {Promise<T>} */(promise);
+  };
 };
 
 export const handler = (sab, options, useAtomics) => {

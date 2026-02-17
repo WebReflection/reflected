@@ -1,0 +1,1 @@
+import{s}from"./sender-CSLmSsV_.js";const{load:e,store:a,wait:t}=Atomics,o=(o,r)=>(addEventListener("message",r,{once:!0}),r=>o.then(([o,n,d])=>(postMessage(1),((s,o,r)=>(n,...d)=>(s.postMessage(n,...d),t(o,0,0),a(o,0,0),r.ondata(o.subarray(2,2+e(o,1)))))(d,new Int32Array(o),s({...n,...r})))));export{o as h};

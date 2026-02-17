@@ -1,11 +1,16 @@
 import withResolvers from '@webreflection/utils/with-resolvers';
 import { native } from '@webreflection/utils/shared-array-buffer';
 
-let channel, module;
+/** @type {string} */
+let channel;
+
+/** @type {Function} */
+let module;
 
 if ('importScripts' in globalThis) {
   let get;
   const { promise, resolve } = withResolvers();
+  // @ts-ignore
   const reflected = new URL(location).searchParams.get('reflected');
   channel = reflected;
   if (reflected === 'message') get = import(/* webpackIgnore: true */'./worker/message.js');
@@ -16,7 +21,9 @@ if ('importScripts' in globalThis) {
     const { data, ports } = await promise;
     const { default: reflect } = await get;
     const event = new Event('message');
+    // @ts-ignore
     event.data = data;
+    // @ts-ignore
     event.ports = ports;
     dispatchEvent(event);
     return reflect(options);

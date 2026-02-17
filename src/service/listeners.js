@@ -21,6 +21,7 @@ const respond = async details => {
   return new Response(await promise);
 };
 
+// @ts-ignore
 export const activate = event => event.waitUntil(clients.claim());
 
 export const fetch = async event => {
@@ -32,4 +33,5 @@ export const fetch = async event => {
   }
 };
 
+// @ts-ignore
 export const install = () => skipWaiting();

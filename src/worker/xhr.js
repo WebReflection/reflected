@@ -21,6 +21,7 @@ const handle = (channel, i32a, options) => {
   const { serviceWorker } = options;
   return (data, ...rest) => {
     const id = next();
+    // @ts-ignore
     bc.postMessage([id, data], ...rest);
     const xhr = new XMLHttpRequest;
     xhr.open('POST', serviceWorker, false);
