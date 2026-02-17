@@ -1,7 +1,7 @@
 {
   "name": "reflected",
   "version": "0.0.0",
-  "description": "",
+  "description": "A primitive to allow workers to call synchronously any functionality exposed on the main thread.",
   "exports": {
     ".": {
       "import": "./src/index.js",
@@ -78,5 +78,16 @@
     "@rollup/plugin-node-resolve": "^16.0.3",
     "@rollup/plugin-terser": "^0.4.4",
     "rollup": "^4.57.1"
-  }
+  },
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WebReflection/reflected.git"
+  },
+  "bugs": {
+    "url": "https://github.com/WebReflection/reflected/issues"
+  },
+  "homepage": "https://github.com/WebReflection/reflected#readme"
 }
