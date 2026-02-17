@@ -24,11 +24,11 @@ export type Options = {
     /**
      * invoked when the worker expect a response as `Int32Array` to populate the SharedArrayBuffer with.
      */
-    ondata: (data: unknown) => Promise<Int32Array>;
+    ondata: (payload: unknown) => Promise<Int32Array>;
     /**
      * invoked when the worker replies to a `worker.send(data)` call.
      */
-    onsend?: (data: unknown) => unknown;
+    onsend?: (payload: unknown) => unknown;
     /**
      * defines the initial byte length of the SharedArrayBuffer.
      */

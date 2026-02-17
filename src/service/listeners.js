@@ -10,8 +10,8 @@ const url = `${protocol}//${host}${pathname}`;
 const bc = new BroadcastChannel(CHANNEL);
 bc.addEventListener('message', ({ data: [op, details] }) => {
   if (op === 'response') {
-    const [uid, data] = details;
-    resolve(uid, `[${data.join(',')}]`);
+    const [uid, payload] = details;
+    resolve(uid, `[${payload.join(',')}]`);
   }
 });
 

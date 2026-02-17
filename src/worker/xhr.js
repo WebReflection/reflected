@@ -19,10 +19,10 @@ const handle = (channel, i32a, options) => {
   const bc = new BroadcastChannel(channel);
   const next = i32();
   const { serviceWorker } = options;
-  return (data, ...rest) => {
+  return (payload, ...rest) => {
     const id = next();
     // @ts-ignore
-    bc.postMessage([id, data], ...rest);
+    bc.postMessage([id, payload], ...rest);
     const xhr = new XMLHttpRequest;
     xhr.open('POST', serviceWorker, false);
     xhr.setRequestHeader('Content-Type', 'application/json');

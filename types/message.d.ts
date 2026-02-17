@@ -1,5 +1,5 @@
 export { channel } from "./worker/message.js";
-declare const _default: ((options: import("./worker/shared.js").Options) => Promise<(data: unknown, ...rest: unknown[]) => unknown>) | ((scriptURL: string, options: import("./main/shared.js").Options) => Promise<{
+declare const _default: ((options: import("./worker/shared.js").Options) => Promise<(payload: unknown, ...rest: unknown[]) => unknown>) | ((scriptURL: string, options: import("./main/shared.js").Options) => Promise<{
     new (scriptURL: any, options: any, resolve: any): {
         get channel(): string;
         "__#private@#next": any;

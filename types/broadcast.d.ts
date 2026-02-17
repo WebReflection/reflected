@@ -17,5 +17,5 @@ declare const _default: ((scriptURL: string, options: import("./main/shared.js")
         onmessage: (this: Worker, ev: MessageEvent) => any;
         onmessageerror: (this: Worker, ev: MessageEvent) => any;
     };
-}>) | ((options: import("./worker/shared.js").Options) => Promise<(data: unknown, ...rest: unknown[]) => unknown>);
+}>) | ((options: import("./worker/shared.js").Options) => Promise<(payload: unknown, ...rest: unknown[]) => unknown>);
 export default _default;

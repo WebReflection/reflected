@@ -18,11 +18,8 @@ sharedBC.addEventListener('message', async ({ data: [op, details] }) => {
     const [uid, [id, channel]] = details;
     const responses = channels.get(channel);
     if (responses) {
-      const promise = responses.get(id);
-      if (promise) {
-        responses.delete(id);
-        sharedBC.postMessage(['response', [uid, await promise]]);
-      }
+      sharedBC.postMessage(['response', [uid, await responses.get(id)]]);
+      responses.delete(id);
     }
   }
 });
@@ -75,10 +72,10 @@ class Worker extends Sender {
     const i32a = new Int32Array(sab);
     const handle = handler(sab, options, false);
     channels.set(channel, responses);
-    bc.addEventListener('message', async ({ data: [id, data] }) => {
+    bc.addEventListener('message', async ({ data: [id, payload] }) => {
       const { promise, resolve } = withResolvers();
       responses.set(id, promise);
-      await handle({ data });
+      await handle({ data: payload });
       resolve(i32a.slice(0, 2 + i32a[1]));
     });
     super(...url(scriptURL, CHANNEL, options));

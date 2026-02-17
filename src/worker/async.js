@@ -17,17 +17,17 @@ const handle = (channel, i32a, options) => {
   const bc = new BroadcastChannel(channel);
   const next = i32();
   const map = new Map;
-  bc.addEventListener('message', ({ data: [id, data] }) => {
-    const [resolve, rest] = map.get(id);
-    i32a.set(data, 0);
-    resolve(options.ondata(i32a.subarray(2, 2 + i32a[1])));
+  bc.addEventListener('message', ({ data: [id, payload] }) => {
+    i32a.set(payload, 0);
+    map.get(id)(options.ondata(i32a.subarray(2, 2 + i32a[1])));
+    map.delete(id);
   });
-  return (data, ...rest) => {
+  return (payload, ...rest) => {
     const { promise, resolve } = withResolvers();
     const id = next();
-    map.set(id, [resolve, rest]);
+    map.set(id, resolve);
     // @ts-ignore
-    bc.postMessage([id, data], ...rest);
+    bc.postMessage([id, payload], ...rest);
     return promise;
   };
 };

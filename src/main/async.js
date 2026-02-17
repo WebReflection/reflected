@@ -12,8 +12,8 @@ export class Worker extends Sender {
     const sab = SAB(options);
     const i32a = new Int32Array(sab);
     const handle = handler(sab, options, false);
-    bc.addEventListener('message', async ({ data: [id, data] }) => {
-      await handle({ data });
+    bc.addEventListener('message', async ({ data: [id, payload] }) => {
+      await handle({ data: payload });
       bc.postMessage([id, i32a.slice(0, 2 + i32a[1])]);
     });
     super(...url(scriptURL, CHANNEL, options));
