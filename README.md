@@ -137,10 +137,11 @@ const worker = await reflect(
 const value = await worker.send({ any: 'payload' });
 ```
 
+Test [live](https://webreflection.github.io/reflected/test/README/) or read the [main thread](./test/README/index.js) and [worker thread](./test/README/worker.js) code.
+
+
 ### Extras
 
 - **Named export `channel`:** After initialization, `import reflect, { channel } from 'reflected'` gives the active strategy name (`'message'`, `'broadcast'`, `'xhr'`, or `'async'`).
 - **Errors:** From main-thread `onsync`, return `new Int32Array(0)` (or a convention of your choice) so the worker always gets a result; handle that in the worker’s `onsync` to avoid hanging.
 - **Types:** you can import `MainOptions` and `WorkerOptions` from the root of the porject because *main* `reflect(string, MainOptions)` and *worker* `reflect(WorkerOptions)` are different in a subtle way you probably don't want to mess around with (in particular, the `onsync` which must be sync on the *worker* side of affairs or it cannnot work)
-
-Test [live](https://webreflection.github.io/reflected/test/README/) or read the [main thread](./test/README/index.js) and [worker thread](./test/README/worker.js) code.
