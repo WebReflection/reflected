@@ -6,7 +6,7 @@ const reflected = await reflect({
   // use this helper to transform such data into something
   // that the worker can use/understand after invoke
   // ℹ️ must be synchronous and it's invoked synchronously
-  ondata(response) {
+  onsync(response) {
     return response.length ? response[0] : undefined;
   },
 

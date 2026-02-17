@@ -41,7 +41,7 @@ const reflected = await reflect({
   // use this helper to transform such data into something
   // that the worker can use/understand after invoke
   // ⚠️ must be synchronous and it's invoked synchronously
-  ondata(response:Int32Array) {
+  onsync(response:Int32Array) {
     return response.length ? response[0] : undefined;
   },
 
@@ -94,7 +94,7 @@ const worker = await reflect(
     // ⚠️ the worker is not responsive until this returns so
     //     be sure you handle errors gracefully to still provide
     //     a result the worker can consume out of the shared buffer!
-    async ondata(payload:unknown) {
+    async onsync(payload:unknown) {
       const { invoke, args } = payload;
 
       if (invoke === 'test_sum') {
@@ -138,6 +138,7 @@ const value = await worker.send({ any: 'payload' });
 ### Extras
 
 - **Named export `channel`:** After initialization, `import reflect, { channel } from 'reflected'` gives the active strategy name (`'message'`, `'broadcast'`, `'xhr'`, or `'async'`).
-- **Errors:** From main-thread `ondata`, return `new Int32Array(0)` (or a convention of your choice) so the worker always gets a result; handle that in the worker’s `ondata` to avoid hanging.
+- **Errors:** From main-thread `onsync`, return `new Int32Array(0)` (or a convention of your choice) so the worker always gets a result; handle that in the worker’s `onsync` to avoid hanging.
+- **Types:** you can import `MainOptions` and `WorkerOptions` from the root of the porject because *main* `reflect(string, MainOptions)` and *worker* `reflect(WorkerOptions)` are different in a subtle way you probably don't want to mess around with (in particular, the `onsync` which must be sync on the *worker* side of affairs or it cannnot work)
 
 Test [live](https://webreflection.github.io/reflected/test/README/) or read the [main thread](./test/README/index.js) and [worker thread](./test/README/worker.js) code.

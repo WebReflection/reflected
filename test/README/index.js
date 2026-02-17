@@ -21,7 +21,7 @@ const worker = await reflect(
     // ⚠️ the worker is not responsive until this returns so
     //     be sure you handle errors gracefully to still provide
     //     a result the worker can consume out of the shared buffer!
-    async ondata(payload) {
+    async onsync(payload) {
       const { invoke, args } = payload;
 
       if (invoke === 'test_sum') {

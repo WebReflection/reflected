@@ -24,7 +24,7 @@ export type Options = {
     /**
      * invoked when the worker expect a response as `Int32Array` to populate the SharedArrayBuffer with.
      */
-    ondata: (data: unknown) => Promise<Int32Array>;
+    onsync: (data: unknown) => Promise<Int32Array>;
     /**
      * invoked when the worker replies to a `worker.send(data)` call.
      */

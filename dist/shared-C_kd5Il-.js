@@ -1,0 +1,1 @@
+import{s}from"./sender-BMLGKAss.js";const{load:e,store:t,wait:a}=Atomics,o=(o,n)=>(addEventListener("message",n,{once:!0}),n=>o.then(([o,r,c])=>(postMessage(1),((s,o,n)=>(r,...c)=>(s.postMessage(r,...c),a(o,0,0),t(o,0,0),n.onsync(o.subarray(2,2+e(o,1)))))(c,new Int32Array(o),s({...r,...n})))));export{o as h};

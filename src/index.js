@@ -1,6 +1,9 @@
 import withResolvers from '@webreflection/utils/with-resolvers';
 import { native } from '@webreflection/utils/shared-array-buffer';
 
+/** @typedef {import('./main/shared.js').Options} MainOptions */
+/** @typedef {import('./worker/shared.js').Options} WorkerOptions */
+
 /** @type {string} */
 let channel;
 

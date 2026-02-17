@@ -5,7 +5,7 @@ const sync = await reflected({
     // console.log('worker', [...data], rest);
     return data;
   },
-  ondata: (data, ...rest) => {
+  onsync: (data, ...rest) => {
     // console.log('worker', [...data], rest);
     return data;
   }

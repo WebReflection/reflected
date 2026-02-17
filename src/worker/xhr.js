@@ -28,7 +28,7 @@ const handle = (channel, i32a, options) => {
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.send(stringify([id, channel]));
     i32a.set(parse(xhr.responseText), 0);
-    return options.ondata(i32a.subarray(2, 2 + i32a[1]));
+    return options.onsync(i32a.subarray(2, 2 + i32a[1]));
   };
 };
 

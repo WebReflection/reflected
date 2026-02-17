@@ -19,7 +19,7 @@ const handle = (channel, i32a, options) => {
   const map = new Map;
   bc.addEventListener('message', ({ data: [id, payload] }) => {
     i32a.set(payload, 0);
-    map.get(id)(options.ondata(i32a.subarray(2, 2 + i32a[1])));
+    map.get(id)(options.onsync(i32a.subarray(2, 2 + i32a[1])));
     map.delete(id);
   });
   return (payload, ...rest) => {

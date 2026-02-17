@@ -8,7 +8,7 @@ try {
       // console.log('onsend', data, rest);
       return data;
     },
-    ondata: async (data, ...rest) => {
+    onsync: async (data, ...rest) => {
       // console.log('main', data, rest);
       // await new Promise(resolve => setTimeout(resolve, 1000));
       return new Int32Array([6, 7, 8, 9, 10]);
