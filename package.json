@@ -61,8 +61,8 @@
     "build": "rm -rf dist && rollup -c rollup.js && cp dist/sw.js test/sw.js && npm run types",
     "types": "tsc --allowJs --checkJs --lib dom,esnext --module nodeNext --target esnext -d --emitDeclarationOnly --outDir ./types ./src/*.js ./src/*/*.js"
   },
-  "keywords": [],
-  "author": "Andrea Giammarchi",
+  "keywords": ["worker", "SharedArrayBuffer", "synchronous"],
+  "author": "Andrea Giammarchi (webreflection)",
   "license": "MIT",
   "type": "module",
   "types": "./types/index.d.ts",
