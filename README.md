@@ -1,6 +1,8 @@
 # reflected
 
-A primitive to allow workers to call synchronously any functionality exposed on the main thread.
+A primitive to allow workers to call **synchronously** any functionality exposed on the main thread.
+
+## Strategies
 
 This module uses 3 synchronous strategies + 1 asynchronous fallback:
 
@@ -9,14 +11,23 @@ This module uses 3 synchronous strategies + 1 asynchronous fallback:
   * **xhr** based on synchronous *XMLHttpRequest* and a dedicated *ServiceWorker* able to intercept such *POST* requests, broadcast to all listening channels the request and resolve as response for the worker.
   * **async** which will always return a *Promise* and will not need special headers or *ServiceWorker*. This is also a fallback for the *xhr* case if the `serviceWorker` option field has not been provided.
 
-All strategies are automatically detected through the default/main `import` but all dedicated strategies can be retrieved directly, example:
+All strategies are automatically detected through the default/main `import` but all dedicated strategies can be retrieved directly, for example:
 
   * `import reflect from 'reflected'` will decide automatically which strategy should be used.
   * `import reflect from 'reflected/message'` will return the right *message* based module on the main thread and the worker mode within the worker.
   * `import reflect from 'reflected/main/message'` will return the *message* strategy for the main thread only. This requires the least amount of bandwidth when you are sure that *message* strategy will work on main.
   * `import reflect from 'reflected/worker/message'` will return the *message* strategy for the worker thread only. This requires the least amount of bandwidth when you are sure that *message* strategy will work within the worker.
 
-Swap `message` with `broadcast`, `xhr` or `async`, and all exports will work equally well accordingly to the chosen "*channel strategy*".
+Swap `message` with `broadcast`, `xhr` or `async`, and all exports will work equally well according to the chosen "*channel strategy*".
+
+| Import | Use case |
+|--------|----------|
+| `reflected` | Auto-pick strategy (main + worker) |
+| `reflected/message` \| `broadcast` \| `xhr` \| `async` | Specific strategy, context-aware |
+| `reflected/main/<strategy>` | Main thread only (smaller bundle) |
+| `reflected/worker/<strategy>` | Worker only (smaller bundle) |
+
+**Requirements:** Synchronous strategies except for `xhr` need [Cross-Origin Isolation](https://developer.mozilla.org/en-US/docs/Web/API/Window/crossOriginIsolated) (e.g. `Cross-Origin-Opener-Policy: same-origin` and `Cross-Origin-Embedder-Policy: require-corp`). The `async` strategy works without those headers and always returns a Promise.
 
 ### Worker Thread API
 
@@ -45,7 +56,7 @@ const reflected = await reflect({
   },
 });
 
-// retrive the result of `test_sum(1, 2, 3)`
+// retrieve the result of `test_sum(1, 2, 3)`
 // directly from the main thread.
 // only the async channel variant would need to await
 const value = reflected({
@@ -74,10 +85,10 @@ const worker = await reflect(
   // Worker scriptURL
   './worker.js',
   // Worker options + required utilities / helpers
-  // ℹ️ type is enforced to be 'module' due top-level await
+  // ℹ️ type is enforced to be 'module' due to top-level await
   {
     // invoked when the worker asks to synchronize a call
-    // and it mmust return an Int32Array reference to populate
+    // and it must return an Int32Array reference to populate
     // the SharedArrayBuffer and notify/unlock the worker
     // ℹ️ works even if synchronous but it's resolved asynchronously
     // ⚠️ the worker is not responsive until this returns so
@@ -123,5 +134,10 @@ const worker = await reflect(
 
 const value = await worker.send({ any: 'payload' });
 ```
+
+### Extras
+
+- **Named export `channel`:** After initialization, `import reflect, { channel } from 'reflected'` gives the active strategy name (`'message'`, `'broadcast'`, `'xhr'`, or `'async'`).
+- **Errors:** From main-thread `ondata`, return `new Int32Array(0)` (or a convention of your choice) so the worker always gets a result; handle that in the worker’s `ondata` to avoid hanging.
 
 Test [live](https://webreflection.github.io/reflected/test/README/) or read the [main thread](./test/README/index.js) and [worker thread](./test/README/worker.js) code.
