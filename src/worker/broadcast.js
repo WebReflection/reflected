@@ -1,4 +1,5 @@
-import { handler, withResolvers } from './shared.js';
+import withResolvers from '@webreflection/utils/with-resolvers';
+import { handler } from './shared.js';
 
 const { promise, resolve } = withResolvers();
 

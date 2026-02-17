@@ -1,5 +1,7 @@
+import withResolvers from '@webreflection/utils/with-resolvers';
 import i32 from 'weak-id/i32';
-import { withResolvers } from './shared.js';
+
+import sender from './sender.js';
 
 const { parse, stringify } = JSON;
 
@@ -11,7 +13,7 @@ addEventListener(
   { once: true }
 );
 
-export const channel = 'service';
+export const channel = 'xhr';
 
 const handle = (channel, i32a, options) => {
   const bc = new BroadcastChannel(channel);
@@ -25,11 +27,11 @@ const handle = (channel, i32a, options) => {
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.send(stringify([id, channel]));
     i32a.set(parse(xhr.responseText), 0);
-    return options.ondata(i32a.subarray(2, 2 + i32a[1]), ...rest);
+    return options.ondata(i32a.subarray(2, 2 + i32a[1]));
   };
 };
 
 export default options => promise.then(([sab, main, channel]) => {
   postMessage(1);
-  return handle(channel, new Int32Array(sab), { ...main, ...options });
+  return handle(channel, new Int32Array(sab), sender({ ...main, ...options }));
 });

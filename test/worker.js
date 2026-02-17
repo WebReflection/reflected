@@ -1,6 +1,10 @@
 import reflected, { channel } from '../dist/index.js';
 
 const sync = await reflected({
+  onsend: (data, ...rest) => {
+    // console.log('worker', [...data], rest);
+    return data;
+  },
   ondata: (data, ...rest) => {
     // console.log('worker', [...data], rest);
     return data;
@@ -10,7 +14,7 @@ const sync = await reflected({
 for (let i = 0; i < 4; i++) sync('test');
 
 console.time('sync');
-const result = sync('test');
+const result = await sync('test');
 console.timeEnd('sync');
 
 console.log(channel, result);

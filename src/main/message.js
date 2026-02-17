@@ -1,23 +1,20 @@
-import { SAB, handler, post, url, withResolvers } from './shared.js';
+import Sender from './sender.js';
+import { SAB, bootstrap, handler, post, url } from './shared.js';
 
-class Worker extends globalThis.Worker {
+const CHANNEL = 'message';
+
+export default bootstrap(class Worker extends Sender {
   constructor(scriptURL, options, resolve) {
     const { port1, port2 } = new MessageChannel;
     const sab = SAB(options);
-    port1.addEventListener('message', handler(sab, options, true));
+    port1.addEventListener(CHANNEL, handler(sab, options, true));
     port1.start();
-    super(...url(scriptURL, 'message', options));
-    super.addEventListener('message', () => resolve(this), { once: true });
+    super(...url(scriptURL, CHANNEL, options));
+    super.addEventListener(CHANNEL, () => resolve(this), { once: true });
     super.postMessage(post(sab, options), [port2]);
   }
 
   get channel() {
-    return 'message';
+    return CHANNEL;
   }
-}
-
-export default (scriptURL, options) => {
-  const { promise, resolve } = withResolvers();
-  new Worker(scriptURL, options, resolve);
-  return promise;
-};
+});

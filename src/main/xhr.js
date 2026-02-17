@@ -1,19 +1,18 @@
-import CHANNEL from '../channel.js';
-import { handler, minByteLength, post, url, withResolvers } from './shared.js';
-import { SharedArrayBuffer } from '@webreflection/utils/shared-array-buffer';
+import withResolvers from '@webreflection/utils/with-resolvers';
+import { Worker as AsyncWorker } from './async.js';
 
-const SAB = ({
-  initByteLength = 1024,
-  maxByteLength = (1024 * 8)
-}) =>
-  new SharedArrayBuffer(
-    minByteLength + initByteLength,
-    { maxByteLength: minByteLength + maxByteLength }
-  );
+import SHARED_CHANNEL from '../channel.js';
+import SAB from './sab.js';
+import Sender from './sender.js';
+
+import { handler, post, url } from './shared.js';
+import { randomUUID } from '../shared.js';
+
+const CHANNEL = 'xhr';
 
 const channels = new Map;
 
-const sharedBC = new BroadcastChannel(CHANNEL);
+const sharedBC = new BroadcastChannel(SHARED_CHANNEL);
 sharedBC.addEventListener('message', async ({ data: [op, details] }) => {
   if (op === 'request') {
     const [uid, [id, channel]] = details;
@@ -54,17 +53,18 @@ const activate = (swc, options) => {
     });
 };
 
-class Worker extends globalThis.Worker {
-  #channel = crypto.randomUUID();
+class Worker extends Sender {
+  #channel;
   constructor(scriptURL, options, resolve) {
     if (init) {
       init = false;
       let { serviceWorker } = options;
+      if (!serviceWorker) return new AsyncWorker(scriptURL, options, resolve);
       if (typeof serviceWorker === 'string') serviceWorker = { url: serviceWorker };
       serviceWorker.url = new URL(serviceWorker.url, location.href).href;
       activate(navigator.serviceWorker, serviceWorker);
     }
-    const channel = crypto.randomUUID();
+    const channel = randomUUID();
     const bc = new BroadcastChannel(channel);
     const sab = SAB(options);
     const responses = new Map;
@@ -77,7 +77,7 @@ class Worker extends globalThis.Worker {
       await handle({ data });
       resolve(i32a.slice(0, 2 + i32a[1]));
     });
-    super(...url(scriptURL, 'service', options));
+    super(...url(scriptURL, CHANNEL, options));
     super.addEventListener('message', () => resolve(this), { once: true });
     super.postMessage(post(sab, options).concat(channel));
     this.#channel = channel;
@@ -89,12 +89,12 @@ class Worker extends globalThis.Worker {
   }
 
   get channel() {
-    return 'service';
+    return CHANNEL;
   }
 };
 
 export default (scriptURL, options) => {
   const { promise, resolve } = withResolvers();
-  new Worker(scriptURL, options, resolve);
-  return sw.then(() => promise);
+  const worker = new Worker(scriptURL, options, resolve);
+  return worker instanceof AsyncWorker ? promise : sw.then(() => promise);
 };

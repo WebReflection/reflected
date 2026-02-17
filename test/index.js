@@ -3,13 +3,20 @@ log.append(`bootstrapping: ${channel}\n`);
 
 try {
   const worker = await reflected('./worker.js', {
-    serviceWorker: location.search === '?sw' ? './mini-coi.js' : './sw.js',
+    serviceWorker: location.search === '?async' ? undefined : './sw.js',
+    onsend: async (data, ...rest) => {
+      // console.log('onsend', data, rest);
+      return data;
+    },
     ondata: async (data, ...rest) => {
       // console.log('main', data, rest);
       // await new Promise(resolve => setTimeout(resolve, 1000));
       return new Int32Array([6, 7, 8, 9, 10]);
-    }
+    },
+    onerror: console.error,
   });
+
+  log.append(`consuming: ${worker.channel}\n`);
 
   worker.addEventListener(
     'message',
@@ -18,6 +25,11 @@ try {
     },
     { once: true }
   );
+
+  worker.send(new Int32Array([1, 2, 3, 4, 5])).then(data => {
+    log.append(`send: [${data}]\n`);
+  });
 } catch (error) {
   log.append(`error: ${error.message}\n`);
 }
+

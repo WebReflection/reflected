@@ -13,6 +13,12 @@ export const SAB = ({
     { maxByteLength: minByteLength + maxByteLength }
   );
 
+export const bootstrap = Worker => (scriptURL, options) => {
+  const { promise, resolve } = withResolvers();
+  new Worker(scriptURL, options, resolve);
+  return promise;
+};
+
 export const handler = (sab, options, useAtomics) => {
   const i32a = new Int32Array(sab);
   return async ({ data }) => {
@@ -56,5 +62,3 @@ export const url = (scriptURL, reflected, options) => {
   url.searchParams.set('reflected', reflected);
   return [url, { ...options, type: 'module' }];
 };
-
-export { withResolvers };

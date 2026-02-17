@@ -1,5 +1,5 @@
-import { native } from '@webreflection/utils/shared-array-buffer';
 import withResolvers from '@webreflection/utils/with-resolvers';
+import { native } from '@webreflection/utils/shared-array-buffer';
 
 let channel, module;
 
@@ -10,7 +10,8 @@ if ('importScripts' in globalThis) {
   channel = reflected;
   if (reflected === 'message') get = import(/* webpackIgnore: true */'./worker/message.js');
   else if (reflected === 'broadcast') get = import(/* webpackIgnore: true */'./worker/broadcast.js');
-  else if (reflected === 'service') get = import(/* webpackIgnore: true */'./worker/service.js');
+  else if (reflected === 'xhr') get = import(/* webpackIgnore: true */'./worker/xhr.js');
+  else get = import(/* webpackIgnore: true */'./worker/async.js');
   module = async options => {
     const { data, ports } = await promise;
     const { default: reflect } = await get;
@@ -33,8 +34,8 @@ else if (native) {
   }
 }
 else if (navigator.serviceWorker) {
-  channel = 'service';
-  module = (await import(/* webpackIgnore: true */'./main/service.js')).default;
+  channel = 'xhr';
+  module = (await import(/* webpackIgnore: true */'./main/xhr.js')).default;
 }
 else {
   channel = 'fallback';

@@ -1,1 +1,0 @@
-import"./with-resolvers-CHEvl4oe.js";const{load:s,store:e,wait:t}=Atomics,a=(a,o)=>(addEventListener("message",o,{once:!0}),o=>a.then(([a,r,n])=>(postMessage(1),((a,o,r)=>(n,...i)=>(a.postMessage(n,...i),t(o,0,0),e(o,0,0),r.ondata(o.subarray(2,2+s(o,1)),...i)))(n,new Int32Array(a),{...r,...o}))));export{a as h};
