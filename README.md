@@ -2,7 +2,7 @@
 
 <sup>**Social Media Photo by [Marc-Olivier Jodoin](https://unsplash.com/@marcojodoin) on [Unsplash](https://unsplash.com/)**</sup>
 
-A primitive to allow workers to call **synchronously** any functionality exposed on the main thread.
+A primitive to allow workers to call **synchronously** any functionality exposed on the main thread, without blocking it.
 
 ## Strategies
 
