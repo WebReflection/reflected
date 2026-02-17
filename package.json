@@ -1,6 +1,6 @@
 {
   "name": "reflected",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A primitive to allow workers to call synchronously any functionality exposed on the main thread.",
   "exports": {
     ".": {
@@ -61,7 +61,11 @@
     "build": "rm -rf dist && rollup -c rollup.js && cp dist/sw.js test/sw.js && npm run types",
     "types": "tsc --allowJs --checkJs --lib dom,esnext --module nodeNext --target esnext -d --emitDeclarationOnly --outDir ./types ./src/*.js ./src/*/*.js"
   },
-  "keywords": ["worker", "SharedArrayBuffer", "synchronous"],
+  "keywords": [
+    "worker",
+    "SharedArrayBuffer",
+    "synchronous"
+  ],
   "author": "Andrea Giammarchi (webreflection)",
   "license": "MIT",
   "type": "module",
