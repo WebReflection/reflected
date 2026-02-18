@@ -48,8 +48,8 @@ else if (navigator.serviceWorker) {
   module = (await import(/* webpackIgnore: true */'./main/xhr.js')).default;
 }
 else {
-  channel = 'fallback';
-  module = () => {};
+  channel = 'async';
+  module = (await import(/* webpackIgnore: true */'./main/async.js')).default;
 }
 
 export { channel };
