@@ -11,7 +11,7 @@ const { load, store, wait } = Atomics;
 /**
  * @param {MessageChannel | BroadcastChannel} channel
  * @param {Int32Array} i32a
- * @param {Options} options 
+ * @param {Options} options
  * @returns {(payload: unknown, ...rest: unknown[]) => unknown}
  */
 const handle = (channel, i32a, options) => (payload, ...rest) => {
