@@ -15,10 +15,20 @@ bc.addEventListener('message', ({ data: [op, details] }) => {
   }
 });
 
+const response = {
+  status: 200,
+  statusText: 'OK',
+  headers: new Headers({
+    'Cache-Control': 'no-cache, must-revalidate',
+    'Expires': 'Mon, 26 Jul 1997 05:00:00 GMT',
+    'Content-type': 'application/json',
+  })
+};
+
 const respond = async details => {
   const [uid, promise] = next();
   bc.postMessage(['request', [uid, details]]);
-  return new Response(await promise);
+  return new Response(await promise, response);
 };
 
 // @ts-ignore
