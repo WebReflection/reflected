@@ -135,6 +135,33 @@ const value = await worker.send({ any: 'payload' });
 
 Test [live](https://webreflection.github.io/reflected/test/README/) or read the [main thread](./test/README/index.js) and [worker thread](./test/README/worker.js) code.
 
+Latest [ffi](https://webreflection.github.io/reflected/test/ffi/) should allow workers to drive the main thread without even needing SharedArrayBuffer but of course, if *SharedArrayBuffer* is available, these will be much faster.
+
+### reflected/ffi
+
+This module also exports a bare-minimum way to directly drive, whenever the *channel* is **not async**, the main thread from a worker.
+
+```js
+// main.js module
+import reflect from 'reflected/ffi/main';
+
+// returns a worker with a special `ffi` field/namespace
+// directly from reflected-ffi project
+const worker = await reflect('./worker.js', { serviceWorker: './sw.js' });
+
+
+// worker.js module
+import reflect from 'reflected/ffi/worker';
+
+// retrieve the reflected-ffi namespace as it is
+const ffi = await worker();
+
+// will directly append a text node to the main thread body
+ffi.global.document.body.append('it worked 🥳');
+```
+
+To know more about *reflected-ffi* module and features, please visit [the related project](https://github.com/WebReflection/reflected-ffi/#readme).
+
 
 ### Extras
 
