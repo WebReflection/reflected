@@ -143,7 +143,7 @@ This module also exports a bare-minimum way to directly drive, whenever the *cha
 
 ```js
 // main.js module
-import reflect from 'reflected/ffi/main';
+import reflect from 'https://esm.run/reflected/ffi/main';
 
 // returns a worker with a special `ffi` field/namespace
 // directly from reflected-ffi project
@@ -151,7 +151,7 @@ const worker = await reflect('./worker.js', { serviceWorker: './sw.js' });
 
 
 // worker.js module
-import reflect from 'reflected/ffi/worker';
+import reflect from 'https://esm.run/reflected/ffi/worker';
 
 // retrieve the reflected-ffi namespace as it is
 const ffi = await worker();
