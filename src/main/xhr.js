@@ -6,7 +6,7 @@ import SAB from './sab.js';
 import Sender from './sender.js';
 
 import { handler, post, url } from './shared.js';
-import { randomUUID } from '../shared.js';
+import { byteOffset, randomUUID } from '../shared.js';
 
 const CHANNEL = 'xhr';
 
@@ -18,8 +18,9 @@ sharedBC.addEventListener('message', async ({ data: [op, details] }) => {
     const [uid, [id, channel]] = details;
     const responses = channels.get(channel);
     if (responses) {
-      sharedBC.postMessage(['response', [uid, await responses.get(id)]]);
+      const promise = responses.get(id);
       responses.delete(id);
+      sharedBC.postMessage(['response', [uid, await promise]]);
     }
   }
 });
@@ -76,7 +77,7 @@ class Worker extends Sender {
       const { promise, resolve } = withResolvers();
       responses.set(id, promise);
       await handle({ data: payload });
-      resolve(i32a.slice(0, 2 + i32a[1]));
+      resolve(new Uint8Array(sab, byteOffset, i32a[1]));
     });
     super(...url(scriptURL, CHANNEL, options));
     super.addEventListener('message', () => resolve(this), { once: true });

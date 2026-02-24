@@ -8,4 +8,9 @@ export type Options = {
      * invoked to define what to return to the *main* thread when it calls `worker.send(payload)`.
      */
     onsend: (payload: unknown) => unknown | Promise<unknown>;
+    /**
+     * defines the decoder function to use to decode the result from the SharedArrayBuffer.
+     */
+    decoder?: typeof decoder;
 };
+import { decoder } from 'reflected-ffi/decoder';

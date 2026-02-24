@@ -1,4 +1,7 @@
+import { decoder } from 'reflected-ffi/decoder';
+
 import sender from './sender.js';
+import { byteOffset } from '../shared.js';
 
 const { load, store, wait } = Atomics;
 
@@ -6,6 +9,7 @@ const { load, store, wait } = Atomics;
  * @typedef {Object} Options
  * @property {(payload: Int32Array) => unknown} onsync transforms the resulting `Int32Array` from *main* thread into a value usable within the worker.
  * @property {(payload: unknown) => unknown |Promise<unknown>} onsend invoked to define what to return to the *main* thread when it calls `worker.send(payload)`.
+ * @property {import('reflected-ffi/decoder').decoder} [decoder] defines the decoder function to use to decode the result from the SharedArrayBuffer.
  */
 
 /**
@@ -14,12 +18,17 @@ const { load, store, wait } = Atomics;
  * @param {Options} options
  * @returns {(payload: unknown, ...rest: unknown[]) => unknown}
  */
-const handle = (channel, i32a, options) => (payload, ...rest) => {
-  // @ts-ignore
-  channel.postMessage(payload, ...rest);
-  wait(i32a, 0, 0);
-  store(i32a, 0, 0);
-  return options.onsync(i32a.subarray(2, 2 + load(i32a, 1)));
+const handle = (channel, i32a, options) => {
+  const decode = (options.decoder ?? decoder)({ byteOffset });
+  const { buffer } = i32a;
+  return (payload, ...rest) => {
+    // @ts-ignore
+    channel.postMessage(payload, ...rest);
+    wait(i32a, 0, 0);
+    store(i32a, 0, 0);
+    const length = load(i32a, 1);
+    return options.onsync(length ? decode(length, buffer) : void 0);
+  };
 };
 
 /**

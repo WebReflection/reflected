@@ -1,4 +1,5 @@
 import withResolvers from '@webreflection/utils/with-resolvers';
+import { decoder } from 'reflected-ffi/decoder';
 import i32 from 'weak-id/i32';
 
 import sender from './sender.js';
@@ -9,15 +10,16 @@ const { promise, resolve } = withResolvers();
 
 addEventListener(
   'message',
-  ({ data: [sab, main, channel] }) => resolve([sab, main, channel]),
+  ({ data: [_, main, channel] }) => resolve([main, channel]),
   { once: true }
 );
 
 export const channel = 'xhr';
 
-const handle = (channel, i32a, options) => {
+const handle = (channel, options) => {
   const bc = new BroadcastChannel(channel);
   const next = i32();
+  const decode = (options.decoder ?? decoder)({ byteOffset: 0 });
   const { serviceWorker } = options;
   return (payload, ...rest) => {
     const id = next();
@@ -27,12 +29,12 @@ const handle = (channel, i32a, options) => {
     xhr.open('POST', serviceWorker, false);
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.send(stringify([id, channel]));
-    i32a.set(parse(xhr.responseText), 0);
-    return options.onsync(i32a.subarray(2, 2 + i32a[1]));
+    const { length, buffer } = new Uint8Array(parse(xhr.responseText));
+    return options.onsync(length ? decode(length, buffer) : void 0);
   };
 };
 
-export default options => promise.then(([sab, main, channel]) => {
+export default options => promise.then(([main, channel]) => {
   postMessage(1);
-  return handle(channel, new Int32Array(sab), sender({ ...main, ...options }));
+  return handle(channel, sender({ ...main, ...options }));
 });

@@ -75,6 +75,7 @@
   "dependencies": {
     "@webreflection/utils": "^0.1.2",
     "next-resolver": "^0.1.6",
+    "reflected-ffi": "^0.7.0",
     "typescript": "^5.9.3",
     "weak-id": "^0.2.1"
   },

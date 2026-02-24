@@ -1,25 +1,27 @@
 import withResolvers from '@webreflection/utils/with-resolvers';
+import { decoder } from 'reflected-ffi/decoder';
 import i32 from 'weak-id/i32';
 
 import sender from './sender.js';
+import { byteOffset } from '../shared.js';
 
 const { promise, resolve } = withResolvers();
 
 addEventListener(
   'message',
-  ({ data: [sab, main, channel] }) => resolve([sab, main, channel]),
+  ({ data: [_, main, channel] }) => resolve([main, channel]),
   { once: true }
 );
 
 export const channel = 'async';
 
-const handle = (channel, i32a, options) => {
+const handle = (channel, options) => {
   const bc = new BroadcastChannel(channel);
   const next = i32();
+  const decode = (options.decoder ?? decoder)({ byteOffset });
   const map = new Map;
-  bc.addEventListener('message', ({ data: [id, payload] }) => {
-    i32a.set(payload, 0);
-    map.get(id)(options.onsync(i32a.subarray(2, 2 + i32a[1])));
+  bc.addEventListener('message', ({ data: [id, { length, buffer }] }) => {
+    map.get(id)(options.onsync(length ? decode(length, buffer) : void 0));
     map.delete(id);
   });
   return (payload, ...rest) => {
@@ -32,7 +34,7 @@ const handle = (channel, i32a, options) => {
   };
 };
 
-export default options => promise.then(([sab, main, channel]) => {
+export default options => promise.then(([main, channel]) => {
   postMessage(1);
-  return handle(channel, new Int32Array(sab), sender({ ...main, ...options }));
+  return handle(channel, sender({ ...main, ...options }));
 });

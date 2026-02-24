@@ -1,0 +1,1 @@
+import{w as r}from"./with-resolvers-CHEvl4oe.js";import{h as s}from"./shared-DPsM-o7V.js";import"./sender-DL3isFNg.js";import"./channel-DQBWE7_E.js";import"./shared-D1EE5wug.js";const{promise:a,resolve:e}=r(),o="broadcast";var t=s(a,({data:[r,s,a]})=>e([r,s,new BroadcastChannel(a)]));export{o as channel,t as default};

@@ -11,7 +11,7 @@ try {
     onsync: async (data, ...rest) => {
       // console.log('main', data, rest);
       // await new Promise(resolve => setTimeout(resolve, 1000));
-      return new Int32Array([6, 7, 8, 9, 10]);
+      return [6, 7, 8, 9, 10];
     },
     onerror: console.error,
   });
@@ -26,7 +26,7 @@ try {
     { once: true }
   );
 
-  worker.send(new Int32Array([1, 2, 3, 4, 5])).then(data => {
+  worker.send([1, 2, 3, 4, 5]).then(data => {
     log.append(`send: [${data}]\n`);
   });
 } catch (error) {

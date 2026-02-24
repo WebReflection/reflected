@@ -7,7 +7,7 @@ const reflected = await reflect({
   // that the worker can use/understand after invoke
   // ℹ️ must be synchronous and it's invoked synchronously
   onsync(response) {
-    return response.length ? response[0] : undefined;
+    return response;
   },
 
   async onsend(payload) {

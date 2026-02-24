@@ -1,16 +1,17 @@
 import withResolvers from '@webreflection/utils/with-resolvers';
+import { encoder } from 'reflected-ffi/encoder';
+
+import { byteOffset } from '../shared.js';
 
 const { notify, store } = Atomics;
-
-export const minByteLength = Int32Array.BYTES_PER_ELEMENT * 2;
 
 export const SAB = ({
   initByteLength = 1024,
   maxByteLength = (1024 * 8)
 }) =>
   new SharedArrayBuffer(
-    minByteLength + initByteLength,
-    { maxByteLength: minByteLength + maxByteLength }
+    byteOffset + initByteLength,
+    { maxByteLength: byteOffset + maxByteLength }
   );
 
 /**
@@ -27,6 +28,7 @@ export const SAB = ({
  * @property {number} [initByteLength=1024] defines the initial byte length of the SharedArrayBuffer.
  * @property {number} [maxByteLength=8192] defines the maximum byte length (growth) of the SharedArrayBuffer.
  * @property {string | ServiceWorkerOptions} [serviceWorker] defines the service worker to use as fallback if SharedArrayBuffer is not supported. If not defined, the `async` fallback will be used so that no `sync` operations from the worker will be possible.
+ * @property {import('reflected-ffi/encoder').encoder} [encoder] defines the encoder function to use to encode the result into the SharedArrayBuffer.
  */
 
 /**
@@ -51,22 +53,25 @@ export const bootstrap = Worker => {
 
 export const handler = (sab, options, useAtomics) => {
   const i32a = new Int32Array(sab);
-  return async ({ data }) => {
-    const result = await options.onsync(data);
-    const length = result.length;
-    const requiredByteLength = minByteLength + result.buffer.byteLength;
-    if (sab.byteLength < requiredByteLength) sab.grow(requiredByteLength);
-    i32a.set(result, 2);
-    if (useAtomics) {
+  const encode = (options.encoder ?? encoder)({ byteOffset });
+
+  const resolve = useAtomics ?
+    (length => {
       store(i32a, 1, length);
       store(i32a, 0, 1);
       notify(i32a, 0);
-    }
-    else {
+    }) :
+    (length => {
       i32a[1] = length;
       i32a[0] = 1;
-    }
+    });
+
+  const process = result => {
+    const length = encode(result, sab);
+    return typeof length === 'number' ? resolve(length) : length.then(resolve);
   };
+
+  return async ({ data }) => process(await options.onsync(data));
 };
 
 const isOK = value => {

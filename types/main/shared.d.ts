@@ -1,4 +1,3 @@
-export const minByteLength: number;
 export function SAB({ initByteLength, maxByteLength }: {
     initByteLength?: number;
     maxByteLength?: number;
@@ -6,7 +5,7 @@ export function SAB({ initByteLength, maxByteLength }: {
 export function bootstrap<T>(Worker: T): (scriptURL: string, options: Options) => Promise<T>;
 export function handler(sab: any, options: any, useAtomics: any): ({ data }: {
     data: any;
-}) => Promise<void>;
+}) => Promise<any>;
 export function post(sab: any, options: any): any[];
 export function url(scriptURL: any, reflected: any, options: any): any[];
 /**
@@ -41,4 +40,9 @@ export type Options = {
      * defines the service worker to use as fallback if SharedArrayBuffer is not supported. If not defined, the `async` fallback will be used so that no `sync` operations from the worker will be possible.
      */
     serviceWorker?: string | ServiceWorkerOptions;
+    /**
+     * defines the encoder function to use to encode the result into the SharedArrayBuffer.
+     */
+    encoder?: typeof encoder;
 };
+import { encoder } from 'reflected-ffi/encoder';

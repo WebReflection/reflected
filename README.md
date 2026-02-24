@@ -43,8 +43,8 @@ const reflected = await reflect({
   // use this helper to transform such data into something
   // that the worker can use/understand after invoke
   // ⚠️ must be synchronous and it's invoked synchronously
-  onsync(response:Int32Array) {
-    return response.length ? response[0] : undefined;
+  onsync(response:unknown) {
+    return response;
   },
 
   // receives the data from the main thread when
@@ -90,8 +90,6 @@ const worker = await reflect(
   // ℹ️ type is enforced to be 'module' due to top-level await
   {
     // invoked when the worker asks to synchronize a call
-    // and it must return an Int32Array reference to populate
-    // the SharedArrayBuffer and notify/unlock the worker
     // ℹ️ works even if synchronous but it's resolved asynchronously
     // ⚠️ the worker is not responsive until this returns so
     //     be sure you handle errors gracefully to still provide
@@ -101,13 +99,11 @@ const worker = await reflect(
 
       if (invoke === 'test_sum') {
         // just demoing this can be async too
-        const value = await test_sum(...args);
-        return new Int32Array([value]);
+        return await test_sum(...args);
       }
 
-      // errors should still be Int32Array but
-      // it is trivial to return no result
-      return new Int32Array(0);
+      // it is trivial to return no result or even errors
+      return new Error('unknown ' + invoke);
     },
 
     // *optional* helper to process data returned from the worker when

@@ -1,7 +1,7 @@
 import Sender from './sender.js';
 import SAB from './sab.js';
 import { bootstrap, handler, post, url } from './shared.js';
-import { randomUUID } from '../shared.js';
+import { byteOffset, randomUUID } from '../shared.js';
 
 const CHANNEL = 'async';
 
@@ -14,7 +14,7 @@ export class Worker extends Sender {
     const handle = handler(sab, options, false);
     bc.addEventListener('message', async ({ data: [id, payload] }) => {
       await handle({ data: payload });
-      bc.postMessage([id, i32a.slice(0, 2 + i32a[1])]);
+      bc.postMessage([id, new Uint8Array(sab, byteOffset, i32a[1])]);
     });
     super(...url(scriptURL, CHANNEL, options));
     super.addEventListener('message', () => resolve(this), { once: true });
