@@ -1,4 +1,4 @@
-declare function _default(options: any): Promise<{
+declare function _default(options: import("../index.js").WorkerOptions & import("reflected-ffi/remote").RemoteOptions): Promise<{
     global: unknown;
     isProxy: (value: any) => boolean;
     assign<T extends {}, U>(target: T, source: U): T & U;

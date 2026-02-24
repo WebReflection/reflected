@@ -1,11 +1,19 @@
 {
   "name": "reflected",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A primitive to allow workers to call synchronously any functionality exposed on the main thread.",
   "exports": {
     ".": {
       "import": "./src/index.js",
       "types": "./types/index.d.ts"
+    },
+    "./ffi/main": {
+      "import": "./src/ffi/main.js",
+      "types": "./types/ffi/main.d.ts"
+    },
+    "./ffi/worker": {
+      "import": "./src/ffi/worker.js",
+      "types": "./types/ffi/worker.d.ts"
     },
     "./async": {
       "import": "./src/async.js",
