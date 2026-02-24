@@ -17,7 +17,7 @@ export default class Sender extends Worker {
     if (!options.onsend) options.onsend = onsend;
     super.addEventListener('message', async event => {
       const { data } = event;
-      if (isArray(data) && data[0] === SHARED_CHANNEL) {
+      if (isArray(data) && data.length === 2 && data[0] === SHARED_CHANNEL) {
         event.stopImmediatePropagation();
         event.preventDefault();
         const [id, payload] = data[1];

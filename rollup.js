@@ -56,4 +56,20 @@ export default [
       file: './dist/sw.js'
     }
   },
+  {
+    plugins,
+    input: './src/ffi/main.js',
+    output: {
+      esModule: true,
+      dir: './dist/ffi'
+    }
+  },
+  {
+    plugins,
+    input: './src/ffi/worker.js',
+    output: {
+      esModule: true,
+      dir: './dist/ffi'
+    }
+  },
 ];

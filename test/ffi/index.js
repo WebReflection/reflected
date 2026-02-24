@@ -1,6 +1,6 @@
-import reflect, { channel } from '../../dist/index.js';
+import worker from '../../dist/ffi/main.js';
 
-import local from 'https://esm.run/reflected-ffi/local';
-import { encoder } from 'https://esm.run/reflected-ffi/encoder';
+const w = await worker('./worker.js', { serviceWorker: './sw.js' });
 
+console.log(w);
 
