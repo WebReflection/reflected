@@ -2,6 +2,13 @@
   "name": "reflected",
   "version": "0.1.3",
   "description": "A primitive to allow workers to call synchronously any functionality exposed on the main thread.",
+  "files": [
+    "dist",
+    "types",
+    "reflected.tar.gz",
+    "README.md",
+    "LICENSE"
+  ],
   "exports": {
     ".": {
       "import": "./src/index.js",
@@ -66,7 +73,7 @@
     "./package.json": "./package.json"
   },
   "scripts": {
-    "build": "rm -rf dist && rollup -c rollup.js && cp dist/sw.js test/sw.js && npm run types",
+    "build": "rm -rf dist && rollup -c rollup.js && cp dist/sw.js test/sw.js && cp -R ./dist ./reflected && tar -czf ./reflected.tar.gz ./reflected && rm -rf ./reflected && npm run types",
     "types": "tsc --allowJs --checkJs --lib dom,esnext --module nodeNext --target esnext -d --emitDeclarationOnly --outDir ./types ./src/*.js ./src/*/*.js"
   },
   "keywords": [
@@ -91,9 +98,6 @@
     "@rollup/plugin-node-resolve": "^16.0.3",
     "@rollup/plugin-terser": "^0.4.4",
     "rollup": "^4.57.1"
-  },
-  "directories": {
-    "test": "test"
   },
   "repository": {
     "type": "git",
