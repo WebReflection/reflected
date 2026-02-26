@@ -74,7 +74,7 @@
   },
   "scripts": {
     "build": "rm -rf dist && rollup -c rollup.js && cp dist/sw.js test/sw.js && cp -R ./dist ./reflected && tar -czf ./reflected.tar.gz ./reflected && rm -rf ./reflected && npm run types",
-    "types": "tsc --allowJs --checkJs --lib dom,esnext --module nodeNext --target esnext -d --emitDeclarationOnly --outDir ./types ./src/*.js ./src/*/*.js"
+    "types": "rm -rf types && tsc --allowJs --checkJs --lib dom,esnext --module nodeNext --target esnext -d --emitDeclarationOnly --outDir ./types ./src/*.js ./src/*/*.js"
   },
   "keywords": [
     "worker",
