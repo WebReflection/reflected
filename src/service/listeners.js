@@ -11,7 +11,7 @@ const bc = new BroadcastChannel(CHANNEL);
 bc.addEventListener('message', ({ data: [op, details] }) => {
   if (op === 'response') {
     const [uid, payload] = details;
-    resolve(uid, `[${payload.join(',')}]`);
+    resolve(uid, payload.slice(0, payload.length));
   }
 });
 
@@ -21,7 +21,7 @@ const response = {
   headers: new Headers({
     'Cache-Control': 'no-cache, must-revalidate',
     'Expires': 'Mon, 26 Jul 1997 05:00:00 GMT',
-    'Content-type': 'application/json',
+    'Content-type': 'application/octet-stream',
   })
 };
 

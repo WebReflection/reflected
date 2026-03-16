@@ -4,7 +4,7 @@ import i32 from 'weak-id/i32';
 
 import sender from './sender.js';
 
-const { parse, stringify } = JSON;
+const { stringify } = JSON;
 
 const { promise, resolve } = withResolvers();
 
@@ -27,9 +27,10 @@ const handle = (channel, options) => {
     bc.postMessage([id, payload], ...rest);
     const xhr = new XMLHttpRequest;
     xhr.open('POST', serviceWorker, false);
+    xhr.responseType = 'arraybuffer';
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.send(stringify([id, channel]));
-    const { length, buffer } = new Uint8Array(parse(xhr.responseText));
+    const { length, buffer } = new Uint8Array(xhr.response);
     return options.onsync(length ? decode(length, buffer) : void 0);
   };
 };
