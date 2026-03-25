@@ -72,4 +72,20 @@ export default [
       dir: './dist/ffi'
     }
   },
+  {
+    plugins,
+    input: './src/main/proxy.js',
+    output: {
+      esModule: true,
+      dir: './dist/proxy/main'
+    }
+  },
+  {
+    plugins,
+    input: './src/worker/proxy.js',
+    output: {
+      esModule: true,
+      dir: './dist/proxy/worker'
+    }
+  },
 ];

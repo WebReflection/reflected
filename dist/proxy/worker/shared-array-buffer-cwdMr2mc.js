@@ -1,0 +1,1 @@
+let{SharedArrayBuffer:e}=globalThis,r=!0;try{new e(4,{maxByteLength:8})}catch(a){r=!1,e=class extends ArrayBuffer{get growable(){return super.resizable}grow(e){super.resize(e)}}}export{e as S,r as n};

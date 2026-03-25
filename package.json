@@ -22,6 +22,14 @@
       "import": "./src/ffi/worker.js",
       "types": "./types/ffi/worker.d.ts"
     },
+    "./proxy/main": {
+      "import": "./src/main/proxy.js",
+      "types": "./types/main/proxy.d.ts"
+    },
+    "./proxy/worker": {
+      "import": "./src/worker/proxy.js",
+      "types": "./types/worker/proxy.d.ts"
+    },
     "./async": {
       "import": "./src/async.js",
       "types": "./types/async.d.ts"
@@ -90,14 +98,14 @@
   "dependencies": {
     "@webreflection/utils": "^0.1.2",
     "next-resolver": "^0.1.6",
-    "reflected-ffi": "^0.7.1",
-    "typescript": "^5.9.3",
+    "reflected-ffi": "^0.7.2",
     "weak-id": "^0.2.1"
   },
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^16.0.3",
-    "@rollup/plugin-terser": "^0.4.4",
-    "rollup": "^4.59.0"
+    "@rollup/plugin-terser": "^1.0.0",
+    "rollup": "^4.60.0",
+    "typescript": "^5.9.3"
   },
   "repository": {
     "type": "git",
