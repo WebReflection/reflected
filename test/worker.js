@@ -1,15 +1,16 @@
 import reflected, { channel } from '../dist/proxy/worker/proxy.js';
 
 const proxy = await reflected({
-  onsend: (data, ...rest) => {
-    console.log('worker onsend', [...data], rest);
-    return data;
-  },
   onsync: (payload) => {
     console.log('worker onsync', payload);
     return payload;
   }
 });
+
+proxy.compute = (name, value) => {
+  console.log('computing', proxy.test(1, 2, 3));
+  return Promise.resolve({ name, value });
+};
 
 for (let i = 0; i < 4; i++) proxy.test(1, 2, 3);
 

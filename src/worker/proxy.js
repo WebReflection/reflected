@@ -5,8 +5,12 @@ const { create } = Object;
 export { channel };
 
 export default async options => {
-  const sync = await worker(options);
-  return new Proxy(create(null), {
+  const target = create(null);
+  const sync = await worker({
+    ...options,
+    onsend: ([name, args]) => target[name](...args),
+  });
+  return new Proxy(target, {
     get(target, name) {
       // the curse of potentially awaiting proxies in the wild
       // requires this ugly guard around `then`
@@ -14,8 +18,10 @@ export default async options => {
       return target[name] ?? (target[name] = (...args) => sync([name, args]));
     },
     // @ts-ignore
-    set(map, name, value) {
-      // TODO: implement remote calls from the worker
+    set(target, name, value) {
+      const ok = name !== 'then';
+      if (ok) target[name] = value;
+      return ok;
     },
   });
 };

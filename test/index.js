@@ -9,3 +9,5 @@ const { proxy } = worker;
 proxy.test = async (...args) => args.reduce((a, b) => a + b, 0);
 
 log.append(`consuming: ${worker.channel}\n`);
+
+console.log(await proxy.compute('a', 1));
