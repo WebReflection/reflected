@@ -1,7 +1,7 @@
 import withResolvers from '@webreflection/utils/with-resolvers';
 import { encoder } from 'reflected-ffi/encoder';
 
-import { byteOffset } from '../shared.js';
+import { byteOffset, identity } from '../shared.js';
 
 const { notify, store } = Atomics;
 
@@ -23,7 +23,7 @@ export const SAB = ({
 
 /**
  * @typedef {Object} Options
- * @property {(payload: unknown) => Int32Array | Promise<Int32Array>} onsync invoked when the worker expect a response as `Int32Array` to populate the SharedArrayBuffer with.
+ * @property {(payload: unknown) => Int32Array | Promise<Int32Array>} [onsync] invoked when the worker expect a response as `Int32Array` to populate the SharedArrayBuffer with.
  * @property {(payload: unknown) => unknown | Promise<unknown>} [onsend] invoked when the worker replies to a `worker.send(data)` call.
  * @property {number} [initByteLength=1024] defines the initial byte length of the SharedArrayBuffer.
  * @property {number} [maxByteLength=8192] defines the maximum byte length (growth) of the SharedArrayBuffer.
@@ -54,6 +54,7 @@ export const bootstrap = Worker => {
 export const handler = (sab, options, useAtomics) => {
   const i32a = new Int32Array(sab);
   const encode = (options.encoder ?? encoder)({ byteOffset });
+  const onsync = options.onsync ?? identity;
 
   const resolve = useAtomics ?
     (length => {
@@ -71,7 +72,7 @@ export const handler = (sab, options, useAtomics) => {
     return typeof length === 'number' ? resolve(length) : length.then(resolve);
   };
 
-  return async ({ data }) => process(await options.onsync(data));
+  return async ({ data }) => process(await onsync(data));
 };
 
 const isOK = value => {

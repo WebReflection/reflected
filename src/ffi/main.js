@@ -1,6 +1,8 @@
+import { MAIN, WORKER } from './channels.js';
+
 import local from 'reflected-ffi/local';
 
-import main from '../index.js';
+import main from '../main/proxy.js';
 
 const { assign } = Object;
 
@@ -9,22 +11,19 @@ const { assign } = Object;
  * @param {import('../index.js').MainOptions & import('reflected-ffi/local').LocalOptions} options
  */
 export default async (url, options) => {
+  const worker = await main(url, options);
+  const { proxy } = worker;
+
   const ffi = local({
     timeout: 0,
     buffer: true,
     ...options,
     // @ts-ignore
-    reflect: (...args) => worker.send(args),
+    reflect: proxy[WORKER],
   });
 
-  const worker = /** @type {Worker} */(await main(
-    url,
-    {
-      ...options,
-      // @ts-ignore
-      onsync: args => ffi.reflect(...args),
-    }
-  ));
+  // @ts-ignore
+  proxy[MAIN] = args => ffi.reflect(...args);
 
   const { terminate } = worker;
   return assign(worker, {

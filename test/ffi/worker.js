@@ -4,6 +4,7 @@ const ffi = await worker();
 
 console.log(ffi);
 
+// const body = ffi.global.document.body;
 const body = ffi.query(ffi.global, 'document.body');
 
 body.addEventListener('click', event => {

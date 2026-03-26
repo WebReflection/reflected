@@ -3,18 +3,18 @@ import i32 from 'weak-id/i32';
 
 import SHARED_CHANNEL from '../channel.js';
 
-const { isArray } = Array;
+import { identity } from '../shared.js';
 
-const onsend = value => value;
+const { isArray } = Array;
 
 export default class Sender extends Worker {
   #next;
   #requests;
   constructor(scriptURL, options) {
+    const onsend = options.onsend ?? identity;
     super(scriptURL, options);
     this.#next = i32();
     this.#requests = new Map;
-    if (!options.onsend) options.onsend = onsend;
     super.addEventListener('message', async event => {
       const { data } = event;
       if (isArray(data) && data.length === 2 && data[0] === SHARED_CHANNEL) {
@@ -23,7 +23,7 @@ export default class Sender extends Worker {
         const [id, payload] = data[1];
         const resolve = this.#requests.get(id);
         this.#requests.delete(id);
-        resolve(await options.onsend(payload));
+        resolve(await onsend(payload));
       }
     });
   }

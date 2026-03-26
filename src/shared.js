@@ -7,6 +7,8 @@ try {
   hasRandomUUID = false;
 }
 
+export const identity = value => value;
+
 export const randomUUID = hasRandomUUID ?
   (() => crypto.randomUUID() ):
   (() => (Date.now() + Math.random()).toString(36));

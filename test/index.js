@@ -3,10 +3,18 @@ log.append(`bootstrapping: ${channel}\n`);
 
 const worker = await reflected('./worker.js', {
   serviceWorker: location.search === '?async' ? undefined : './sw.js',
+  onsend(payload) {
+    console.log('worker.send(payload) returned', payload);
+    return payload;
+  }
 });
 
 const { proxy } = worker;
-proxy.test = async (...args) => args.reduce((a, b) => a + b, 0);
+proxy.test = async (...args) => {
+  // ☠️ test deadlock - a worker waiting synchroonusly main cannot respond !
+  if (location.search === '?deadlock') await proxy.compute('a', 1);
+  return args.reduce((a, b) => a + b, 0);
+};
 
 log.append(`consuming: ${worker.channel}\n`);
 

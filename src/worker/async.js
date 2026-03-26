@@ -3,7 +3,7 @@ import { decoder } from 'reflected-ffi/decoder';
 import i32 from 'weak-id/i32';
 
 import sender from './sender.js';
-import { byteOffset } from '../shared.js';
+import { byteOffset, identity } from '../shared.js';
 
 const { promise, resolve } = withResolvers();
 
@@ -19,9 +19,10 @@ const handle = (channel, options) => {
   const bc = new BroadcastChannel(channel);
   const next = i32();
   const decode = (options.decoder ?? decoder)({ byteOffset });
+  const onsync = options.onsync ?? identity;
   const map = new Map;
   bc.addEventListener('message', ({ data: [id, { length, buffer }] }) => {
-    map.get(id)(options.onsync(length ? decode(length, buffer) : void 0));
+    map.get(id)(onsync(length ? decode(length, buffer) : void 0));
     map.delete(id);
   });
   return (payload, ...rest) => {
