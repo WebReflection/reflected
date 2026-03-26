@@ -1,10 +1,10 @@
 import main, { channel } from '../index.js';
 
+import { assign } from '../shared.js';
+
 const { create } = Object;
 
 export { channel };
-
-const { assign } = Object;
 
 /**
  * @param {string} syncing

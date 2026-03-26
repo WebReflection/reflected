@@ -1,1 +1,0 @@
-import{o as t}from"./with-resolvers-DDQneW8o.js";const{getPrototypeOf:o}=Object,{construct:r}=Reflect,{toStringTag:s}=Symbol,{toString:e}=t,c=(t,e=t[s])=>e in globalThis?e:c(r(o(t.constructor),[0]));export{c as t};

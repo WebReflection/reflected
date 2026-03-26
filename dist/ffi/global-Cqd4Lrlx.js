@@ -1,0 +1,1 @@
+import{o as t}from"./shared-BDVMjgnz.js";const{getPrototypeOf:o}=Object,{construct:s}=Reflect,{toStringTag:r}=Symbol,{toString:a}=t,c=(s,r=a.call(s).slice(8,-1))=>r in globalThis?r:c(o(s)||t),l=(t,a=t[r])=>a in globalThis?a:l(s(o(t.constructor),[0]));export{l as a,c as t};

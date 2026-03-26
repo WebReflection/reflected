@@ -4,7 +4,7 @@ import local from 'reflected-ffi/local';
 
 import main from '../main/proxy.js';
 
-const { assign } = Object;
+import { assign } from '../shared.js';
 
 /**
  * @param {string} url

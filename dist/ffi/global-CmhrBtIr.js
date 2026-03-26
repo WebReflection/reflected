@@ -1,0 +1,1 @@
+import{o as t}from"./shared-DsQUEiXl.js";const{getPrototypeOf:o}=Object,{construct:r}=Reflect,{toStringTag:s}=Symbol,{toString:c}=t,e=(t,c=t[s])=>c in globalThis?c:e(r(o(t.constructor),[0]));export{e as t};

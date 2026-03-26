@@ -1,3 +1,5 @@
+export const assign = Object.assign;
+
 export const byteOffset = Int32Array.BYTES_PER_ELEMENT * 2;
 
 let hasRandomUUID = true;

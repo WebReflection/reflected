@@ -4,6 +4,8 @@ import remote from 'reflected-ffi/remote';
 
 import worker from '../worker/proxy.js';
 
+import { assign } from '../shared.js';
+
 /**
  * @param {import('../index.js').WorkerOptions & import('reflected-ffi/remote').RemoteOptions} options
  */
@@ -20,5 +22,5 @@ export default async options => {
     reflect: (...args) => proxy[MAIN](args),
   });
 
-  return ffi;
+  return { ffi, proxy };
 };
