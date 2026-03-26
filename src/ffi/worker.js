@@ -12,15 +12,14 @@ import { assign } from '../shared.js';
 export default async options => {
   const proxy = await worker(options);
 
-  // @ts-ignore
-  proxy[WORKER] = args => ffi.reflect(...args);
-
   const ffi = remote({
     timeout: 0,
     buffer: true,
     ...options,
     reflect: (...args) => proxy[MAIN](args),
   });
+
+  proxy[WORKER] = ffi.reflect;
 
   return { ffi, proxy };
 };

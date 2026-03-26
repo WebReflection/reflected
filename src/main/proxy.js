@@ -18,9 +18,10 @@ export default async (url, options) => {
   const target = create(null);
   const worker = await main(url, {
     ...options,
-    onsync([name, args]) {
+    async onsync([name, args]) {
       syncing = name;
-      return target[name]?.(...args);
+      try { return await target[name]?.(...args) }
+      finally { syncing = '' }
     },
   });
   return assign(worker, {
