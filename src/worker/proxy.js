@@ -1,6 +1,6 @@
 import reflected, { channel } from '../index.js';
 
-const { create } = Object;
+import { create } from '../shared.js';
 
 export { channel };
 
