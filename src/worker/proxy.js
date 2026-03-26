@@ -1,4 +1,4 @@
-import worker, { channel } from '../index.js';
+import reflected, { channel } from '../index.js';
 
 const { create } = Object;
 
@@ -6,7 +6,7 @@ export { channel };
 
 export default async options => {
   const target = create(null);
-  const sync = await worker({
+  const send = await reflected({
     ...options,
     onsend: ([name, args]) => target[name](...args),
   });
@@ -15,7 +15,7 @@ export default async options => {
       // the curse of potentially awaiting proxies in the wild
       // requires this ugly guard around `then`
       if (name === 'then') return;
-      return target[name] ?? (target[name] = (...args) => sync([name, args]));
+      return target[name] ?? (target[name] = (...args) => send([name, args]));
     },
     // @ts-ignore
     set(target, name, value) {

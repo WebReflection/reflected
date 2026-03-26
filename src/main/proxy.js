@@ -1,4 +1,4 @@
-import main, { channel } from '../index.js';
+import reflected, { channel } from '../index.js';
 
 import { assign } from '../shared.js';
 
@@ -16,7 +16,7 @@ const deadlock = (syncing, name) => `☠️ deadlock: main.${syncing}(...args) i
 export default async (url, options) => {
   let syncing = '';
   const target = create(null);
-  const worker = await main(url, {
+  const worker = await reflected(url, {
     ...options,
     async onsync([name, args]) {
       syncing = name;
