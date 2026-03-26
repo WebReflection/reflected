@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>body{font-family:sans-serif}</style>
+    <title>MicroPython</title>
+    <script type="module">
+        import worker from '../../dist/ffi/main.js';
+        worker('./worker.js', { serviceWorker: './sw.js' });
+    </script>
+</head>
+</html>

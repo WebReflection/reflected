@@ -7,33 +7,45 @@ const { create } = Object;
 export { channel };
 
 /**
- * @param {string} syncing
- * @param {string} name
+ * @param {string | symbol} syncing
+ * @param {string | symbol} name
  * @returns
  */
-const deadlock = (syncing, name) => `☠️ deadlock: main.${syncing}(...args) is calling worker.${name}(...args)`;
+const deadlock = (syncing, name) => `💀🔒 - main.${String(syncing)}() is invoking worker.${String(name)}()`;
 
 export default async (url, options) => {
-  let syncing = '';
+  let t = 0, syncing = '';
+  const debug = options.debug ?? false;
   const target = create(null);
   const worker = await reflected(url, {
     ...options,
-    async onsync([name, args]) {
-      syncing = name;
-      try { return await target[name]?.(...args) }
-      finally { syncing = '' }
-    },
+    onsync: (
+      debug ?
+        (async ([name, args]) => {
+          syncing = name;
+          try { return await target[name]?.(...args) }
+          finally { syncing = '' }
+        }) :
+        (([name, args]) => target[name]?.(...args))
+    )
   });
   return assign(worker, {
     proxy: new Proxy(target, {
-      get: (target, name) => (
-        target[name] ??
-        (target[name] = async (...args) => {
-          if (syncing) throw new Error(deadlock(String(syncing), String(name)));
-          try { return await worker.send([name, args]) }
-          finally { syncing = '' }
-        })
-      ),
+      get: debug ?
+        (target, name) => (
+          target[name] ??
+          (target[name] = async (...args) => {
+            if (syncing) t = setTimeout(console.warn, 3e3, deadlock(syncing, name));
+            try { return await worker.send([name, args]) }
+            finally {
+              syncing = '';
+              clearTimeout(t);
+            }
+          })
+        ) :
+        ((target, name) => (
+          target[name] ?? (target[name] = (...args) => worker.send([name, args]))
+        )),
       set: (target, name, value) => {
         const ok = name !== 'then';
         if (ok) target[name] = value;
