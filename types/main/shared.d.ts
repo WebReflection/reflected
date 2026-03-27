@@ -29,6 +29,10 @@ export type Options = {
      */
     onsend?: (payload: unknown) => unknown | Promise<unknown>;
     /**
+     * the WebSocket URL to use for worker <-> server communication.
+     */
+    ws?: string;
+    /**
      * defines the initial byte length of the SharedArrayBuffer.
      */
     initByteLength?: number;

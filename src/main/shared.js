@@ -25,6 +25,7 @@ export const SAB = ({
  * @typedef {Object} Options
  * @property {(payload: unknown) => Int32Array | Promise<Int32Array>} [onsync] invoked when the worker expect a response as `Int32Array` to populate the SharedArrayBuffer with.
  * @property {(payload: unknown) => unknown | Promise<unknown>} [onsend] invoked when the worker replies to a `worker.send(data)` call.
+ * @property {string} [ws] the WebSocket URL to use for worker <-> server communication.
  * @property {number} [initByteLength=1024] defines the initial byte length of the SharedArrayBuffer.
  * @property {number} [maxByteLength=8192] defines the maximum byte length (growth) of the SharedArrayBuffer.
  * @property {string | ServiceWorkerOptions} [serviceWorker] defines the service worker to use as fallback if SharedArrayBuffer is not supported. If not defined, the `async` fallback will be used so that no `sync` operations from the worker will be possible.
