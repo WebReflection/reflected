@@ -7,10 +7,10 @@ import main from '../main/proxy.js';
 
 import { assign } from '../shared.js';
 
-const encoder = new TextEncoder;
-const uid32View = new Int32Array(1);
-const uid8View = new Uint8Array(uid32View.buffer);
 const BYTES = 4; // Int32Array.BYTES_PER_ELEMENT;
+const encoder = new TextEncoder;
+const uid8View = new Uint8Array(BYTES);
+const uid32Data = new DataView(uid8View.buffer);
 
 /**
  * 
@@ -51,7 +51,7 @@ export default async (url, options) => {
     ws.onerror = console.error;
     ws.onclose = terminate;
     ws.onopen = async () => {
-      uid32View[0] = 0;
+      uid32Data.setInt32(0, 0, true);
       ws.send(asUint8View(uid8View, 0, encoder.encode(SOCKET)));
       resolve(uid);
     };
@@ -62,7 +62,7 @@ export default async (url, options) => {
       const type = view[BYTES];
       uid8View.set(view, 0);
       if (type === 1)
-        resolve(uid32View[0], data);
+        resolve(uid32Data.getInt32(0, true), data);
       else if (type === 2) {
         const result = await worker(data);
         ws.send(asUint8View(view.subarray(0, BYTES), type, result));
@@ -71,7 +71,7 @@ export default async (url, options) => {
     proxy[SOCKET] = async data => {
       await opened;
       const [uid, promise] = next();
-      uid32View[0] = uid;
+      uid32Data.setInt32(0, uid, true);
       ws.send(asUint8View(uid8View, 1, data));
       return promise;
     };
