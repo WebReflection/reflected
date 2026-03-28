@@ -20,7 +20,7 @@ export default async options => {
   proxy[WORKER] = ffi.reflect;
 
   // @ts-ignore
-  ffi.server = options?.ws?.(
+  ffi.ws = options?.ws?.(
     // ondata
     fn => {
       proxy[DRIVER] = fn;

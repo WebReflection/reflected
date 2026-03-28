@@ -7,7 +7,10 @@
     <title>MicroPython</title>
     <script type="module">
         import worker from '../../dist/ffi/main.js';
-        worker('./worker.js', { serviceWorker: './sw.js' });
+        worker('./worker.js', {
+            // ws: 'ws://localhost:8080',
+            serviceWorker: './sw.js'
+        });
     </script>
 </head>
 </html>
