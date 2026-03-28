@@ -1,4 +1,4 @@
-import { MAIN, WORKER } from './channels.js';
+import { MAIN, WORKER, SOCKET, DRIVER } from './channels.js';
 
 import remote from 'reflected-ffi/remote';
 
@@ -18,6 +18,16 @@ export default async options => {
   });
 
   proxy[WORKER] = ffi.reflect;
+
+  // @ts-ignore
+  ffi.server = options?.ws?.(
+    // ondata
+    fn => {
+      proxy[DRIVER] = fn;
+    },
+    // send data
+    proxy[SOCKET]
+  );
 
   return { ffi, proxy };
 };

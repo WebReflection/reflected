@@ -65,7 +65,7 @@ export default async (url, options) => {
         resolve(uid32Data.getInt32(0, true), data);
       else if (type === 2) {
         const result = await worker(data);
-        ws.send(asUint8View(view.subarray(0, BYTES), type, result));
+        ws.send(asUint8View(view.subarray(0, BYTES), 2, result));
       }
     };
     proxy[SOCKET] = async data => {
