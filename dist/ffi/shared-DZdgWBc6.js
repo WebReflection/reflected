@@ -1,0 +1,53 @@
+import { s as sender, d as decoder } from './sender-B7Xmjz4q.js';
+import { s as byteOffset, u as identity } from './shared-5Nhc4gvB.js';
+
+const { load, store, wait } = Atomics;
+
+/**
+ * @typedef {Object} Options
+ * @property {(payload: Int32Array) => unknown} [onsync] transforms the resulting `Int32Array` from *main* thread into a value usable within the worker.
+ * @property {(payload: unknown) => unknown |Promise<unknown>} onsend invoked to define what to return to the *main* thread when it calls `worker.send(payload)`.
+ * @property {import('reflected-ffi/decoder').decoder} [decoder] defines the decoder function to use to decode the result from the SharedArrayBuffer.
+ */
+
+/**
+ * @param {MessageChannel | BroadcastChannel} channel
+ * @param {Int32Array} i32a
+ * @param {Options} options
+ * @returns {(payload: unknown, ...rest: unknown[]) => unknown}
+ */
+const handle = (channel, i32a, options) => {
+  const decode = (options.decoder ?? decoder)({ byteOffset });
+  const onsync = options.onsync ?? identity;
+  const { buffer } = i32a;
+  return (payload, ...rest) => {
+    // @ts-ignore
+    channel.postMessage(payload, ...rest);
+    wait(i32a, 0, 0);
+    store(i32a, 0, 0);
+    const length = load(i32a, 1);
+    return onsync(length ? decode(length, buffer) : void 0);
+  };
+};
+
+/**
+ * 
+ * @param {Promise<[SharedArrayBuffer, Options, MessageChannel | BroadcastChannel]>} promise
+ * @param {(event:MessageEvent) => void} listener
+ * @returns
+ */
+const handler = (promise, listener) => {
+  addEventListener('message', listener, { once: true });
+  /**
+   * @param {Options} options
+   * @returns
+   */
+  return options => promise.then(
+    ([sab, main, channel]) => {
+      postMessage(1);
+      return handle(channel, new Int32Array(sab), sender({ ...main, ...options }));
+    }
+  );
+};
+
+export { handler as h };

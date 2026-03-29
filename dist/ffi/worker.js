@@ -1,1 +1,616 @@
-import{S as t,o as e,O as r,i as s,a as n,l as a,b as i,R as o,B as c,V as u,c as l,d as f,f as h,D as p,t as g,e as y,F as d,g as w,h as m,j as b,k as v,m as $,n as j,p as x,A as P,w as k,q as M}from"./shared-DwSbyGXy.js";import{t as O}from"./global-Bs8RLRoX.js";import{i as S}from"./i32-BkNtpHwD.js";import{n as A}from"./shared-array-buffer-cwdMr2mc.js";const B="M:"+t,T="W:"+t,_="S:"+t,E="D:"+t;let R=0;const K=R++,L=R++,U=R++,W=R++,D=R++,q=R++,F=R++,I=R++,z=R++,V=R++,C=R++,G=R++,H=R++,J=R++,N=R++;R++;const Q=R++,X=R++,Y=(t,e)=>new ArrayBuffer(t,{maxByteLength:e}),Z=([t,e],r)=>{const s=r?t.byteLength:t.length;if(r){if(e){const r=Y(s,e);new Uint8Array(r).set(new Uint8Array(t)),t=r}}else{const r=e?Y(s,e):new ArrayBuffer(s);new Uint8Array(r).set(t),t=r}return t};const tt=/\[('|")?(.+?)\1\]/g,et=(t,e)=>t?.[e];var rt=t=>{const e=[],r=t=>{const r=e.splice(t);for(;t<r.length;)r[t++].delete(r[t++])};return class s extends Map{static keys=Symbol();static proto=Symbol();drop(t,e){return t!==s.proto&&super.delete(s.keys),super.delete(t),e}set(s,n){return((s,n)=>{e.push(s,n)<3&&setTimeout(r,t,0)})(super.set(s,n),s),n}}},st=({reflect:t=s,transform:k=s,released:M=s,buffer:A=!1,timeout:B=-1}=e)=>{const T=a(x),_=a(j),E=t=>{if(!i(t))return t;const[e,s]=t;if(e&o)return st(e,s);switch(e){case r:return bt;case p:return s;case f:return h(s);case l:return BigInt(s);case u:return(([t,e,r,s],n)=>{const a=Z(e,n),i=globalThis[t];return s?new i(a,r,s):new i(a,r)})(s,A);case c:return Z(s,A)}},R=(t,e=new Map)=>{switch(typeof t){case"object":{if(null===t)break;if(t===globalThis)return mt;if(wt in t)return lt;let s=e.get(t);if(!s){const n=k(t);if(ft||!ut.has(n)){if(i(n)){const r=[];s=g(P,r),e.set(t,s);for(let t=0,s=n.length;t<s;t++)r[t]=R(n[t],e);return s}if(!(w(n)||n instanceof ArrayBuffer||"Object"!==O(n))){const a={};s=g(r,a),e.set(t,s);for(const t in n)a[t]=R(n[t],e);return s}}s=g(p,n),e.set(t,s)}return s}case"function":{if(wt in t)return lt;let r=e.get(t);if(!r){const s=k(t);r=g(d,pt(s)),e.set(t,r)}return r}case"symbol":return g(f,y(t))}return t},Y=a(R),st=(t,r)=>{let s=dt.get(r),n=s?.deref();return n||(s&&vt.unregister(s),n=t===m?new Proxy(b,new ct(t,r)):new Proxy(t===$?e:v,new ot(t,r)),s=new WeakRef(n),dt.set(r,s),vt.register(n,r,s)),n},nt=t=>{switch(typeof t){case"object":if(null===t)break;case"function":return wt in t}return!1},at=-1<B,it=at?rt(B):Map;class ot{constructor(t,e){this.t=t,this.v=e,at&&(this.$=new it)}get(e,r){if(at&&this.$.has(r))return this.$.get(r);const s=t(V,this.v,j(r));return at?s[0]?this.$.set(r,E(s[1])):E(s[1]):E(s)}set(e,r,s){const n=t(Q,this.v,j(r),R(s));return at?this.$.drop(r,n):n}has(e,r){return r===wt?(lt=[this.t,this.v],!0):t(H,this.v,j(r))}_oK(){return T(t(N,this.v),dt)}ownKeys(t){return at?this.$.has(it.keys)?this.$.get(it.keys):this.$.set(it.keys,this._oK()):this._oK()}getOwnPropertyDescriptor(e,r){const s=E(t(C,this.v,j(r)));if(s)for(const t in s)s[t]=E(s[t]);return s}defineProperty(e,r,s){const n=t(I,this.v,j(r),R(s));return at?this.$.drop(r,n):n}deleteProperty(e,r){const s=t(z,this.v,j(r));return at?this.$.drop(r,s):s}_gPO(){return E(t(G,this.v))}getPrototypeOf(t){return at?this.$.has(it.proto)?this.$.get(it.proto):this.$.set(it.proto,this._gPO()):this._gPO()}setPrototypeOf(e,r){const s=t(X,this.v,R(r));return at?this.$.drop(it.proto,s):s}isExtensible(e){return t(J,this.v)}preventExtensions(t){return!1}}class ct extends ot{construct(e,r){return E(t(F,this.v,Y(r)))}apply(e,r,s){const n=new Map;return E(t(q,this.v,R(r,n),Y(s,n)))}get(t,e){switch(e){case"apply":return(e,r)=>this.apply(t,e,r);case"call":return(e,...r)=>this.apply(t,e,r);default:return super.get(t,e)}}}let ut,lt,ft=!0;const{apply:ht}=Reflect,{id:pt,ref:gt,unref:yt}=((t=0,e=new Map,r=new Map)=>{const s=S(t);return{clear:()=>{e.clear(),r.clear()},id:t=>{let n=r.get(t);if(void 0===n){for(;e.has(n=s()););e.set(n,t),r.set(t,n)}return n},ref:t=>e.get(t),unref:t=>(r.delete(e.get(t)),e.delete(t))}})(),dt=new Map,wt=Symbol("reflected-ffi"),mt=g(r,null),bt=new Proxy(e,new ot(r,null)),vt=new FinalizationRegistry(e=>{dt.delete(e),t(K,e)});return{global:bt,isProxy:nt,assign(e,...r){const s=nt(e),a=n(s?{}:e,...r);return s&&t(L,lt[1],R(a)),e},direct:t=>(ft&&(ft=!1,ut=new WeakSet),ut.add(t),t),evaluate:(e,...r)=>E(t(U,null,function(t=this){return String(t).replace(/^(async\s*)?(\bfunction\b)?(.*?)\(/,(t,e,r,s)=>s&&!r?`${e||""}function ${s}(`:t)}(e),Y(r))),gather(e,...r){const s=nt(e),n=s?E:t=>e[t];s&&(r=t(W,lt[1],_(r,dt)));for(let t=0;t<r.length;t++)r[t]=n(r[t]);return r},query:(e,r)=>nt(e)?E(t(D,lt[1],r)):((t,e)=>e.replace(tt,".$2").split(".").reduce(et,t))(e,r),reflect:async(t,e,...r)=>{switch(t){case q:{const[t,s]=r;for(let t=0,e=s.length;t<e;t++)s[t]=E(s[t]);return R(await ht(gt(e),E(t),s))}case K:return M(gt(e)),yt(e)}}}};let nt;if("importScripts"in globalThis){let t;const{promise:e,resolve:r}=k(),s=new URL(location).searchParams.get("reflected");t="message"===s?import("./message-BdbPt0y5.js"):"broadcast"===s?import("./broadcast-Ce_cOurt.js"):"xhr"===s?import("./xhr-DHyu_Jz0.js"):import("./async-B_TI4xaG.js"),nt=async r=>{const{data:s,ports:n}=await e,{default:a}=await t,i=new Event("message");return i.data=s,i.ports=n,dispatchEvent(i),a(r)},addEventListener("message",r,{once:!0})}else nt=A?"InstallTrigger"in globalThis?(await import("./broadcast-D0jZEoUb.js")).default:(await import("./message-DNbm1E-6.js")).default:navigator.serviceWorker?(await import("./xhr-C598zZcp.js")).default:(await import("./async-BeKYhv9s.js").then(function(t){return t.a})).default;var at=nt,it=async t=>{const e=await(async t=>{const e=M(null),r=await at({...t,onsend:([t,r])=>e[t](...r)});return new Proxy(e,{get(t,e){if("then"!==e)return t[e]??(t[e]=(...t)=>r([e,t]))},set(t,e,r){const s="then"!==e;return s&&(t[e]=r),s}})})(t),r=st({timeout:0,buffer:!0,...t,reflect:(...t)=>e[B](t)});return e[T]=r.reflect,r.ws=t?.ws?.(t=>{e[E]=t},e[_]),{ffi:r,proxy:e}};export{it as default};
+import { S as SHARED_CHANNEL, o as object, O as OBJECT, i as identity, a as assign, l as loopValues, b as isArray, R as REMOTE, B as BUFFER, V as VIEW, c as BIGINT, d as SYMBOL, f as fromSymbol, D as DIRECT, t as tv, e as toSymbol, F as FUNCTION, g as isView, h as REMOTE_FUNCTION, j as callback, k as array, m as REMOTE_OBJECT, n as toKey, p as fromKey, A as ARRAY, w as withResolvers, q as create } from './shared-CjWXp6-D.js';
+import { t as toName } from './global-DzpOeFX2.js';
+import { i as i32 } from './i32-Cw-Rqr5y.js';
+import { n as native } from './shared-array-buffer-BQgQXQvC.js';
+
+// Main thread <-> Worker thread
+const MAIN = 'M:' + SHARED_CHANNEL;
+const WORKER = 'W:' + SHARED_CHANNEL;
+
+// Worker thread <-> Server thread
+const SOCKET = 'S:' + SHARED_CHANNEL;
+const DRIVER = 'D:' + SHARED_CHANNEL;
+
+let i = 0;
+
+// extras
+const UNREF = i++;
+const ASSIGN = i++;
+const EVALUATE = i++;
+const GATHER = i++;
+const QUERY = i++;
+
+// traps
+const APPLY = i++;
+const CONSTRUCT = i++;
+const DEFINE_PROPERTY = i++;
+const DELETE_PROPERTY = i++;
+const GET = i++;
+const GET_OWN_PROPERTY_DESCRIPTOR = i++;
+const GET_PROTOTYPE_OF = i++;
+const HAS = i++;
+const IS_EXTENSIBLE = i++;
+const OWN_KEYS = i++;
+i++;
+const SET = i++;
+const SET_PROTOTYPE_OF = i++;
+
+/** @typedef {[ArrayBufferLike|number[], number]} BufferDetails */
+/** @typedef {[string, BufferDetails, number, number]} ViewDetails */
+
+/**
+ * @param {number} length
+ * @param {number} maxByteLength
+ * @returns {ArrayBufferLike}
+ */
+const resizable = (length, maxByteLength) => new ArrayBuffer(length, { maxByteLength });
+
+/**
+ * @param {BufferDetails} details 
+ * @param {boolean} direct
+ * @returns {ArrayBufferLike}
+ */
+const fromBuffer = ([value, maxByteLength], direct) => {
+  const length = direct ? /** @type {ArrayBufferLike} */ (value).byteLength : /** @type {number[]} */ (value).length;
+  if (direct) {
+    if (maxByteLength) {
+      const buffer = resizable(length, maxByteLength);
+      new Uint8Array(buffer).set(new Uint8Array(/** @type {ArrayBufferLike} */ (value)));
+      value = buffer;
+    }
+  }
+  else {
+    const buffer = maxByteLength ? resizable(length, maxByteLength) : new ArrayBuffer(length);
+    new Uint8Array(buffer).set(/** @type {number[]} */ (value));
+    value = buffer;
+  }
+  return /** @type {ArrayBufferLike} */ (value);
+};
+
+/**
+ * @param {ViewDetails} details
+ * @param {boolean} direct
+ */
+const fromView = ([name, args, byteOffset, length], direct) => {
+  const buffer = fromBuffer(args, direct);
+  const Class = globalThis[name];
+  return length ? new Class(buffer, byteOffset, length) : new Class(buffer, byteOffset);
+};
+
+// (c) https://github.com/WebReflection/to-json-callback
+// brought in here to avoid a dependency for quick testing
+
+/**
+ * @param {Function} [callback=this]
+ * @returns {string}
+ */
+function toJSONCallback (callback = this) {
+  return String(callback).replace(
+    /^(async\s*)?(\bfunction\b)?(.*?)\(/,
+    (_, isAsync, fn, name) => (
+      name && !fn ?
+        `${isAsync || ""}function ${name}(` :
+        _
+    ),
+  );
+}
+
+const brackets = /\[('|")?(.+?)\1\]/g;
+
+const keys = (target, key) => target?.[key];
+
+/**
+ * Parses the given path and returns the value at the given target.
+ * @param {any} target
+ * @param {string} path
+ * @returns {any}
+ */
+var query = (target, path) => path.replace(brackets, '.$2').split('.').reduce(keys, target);
+
+/**
+ * @template T
+ * @typedef {Object} Heap
+ * @property {() => void} clear
+ * @property {(ref:T) => number} id
+ * @property {(id:number) => T} ref
+ * @property {(id:number) => boolean} unref
+ */
+
+/**
+ * Create a heap-like utility to hold references in memory.
+ * @param {number} [id=0] The initial `id` which is `0` by default.
+ * @param {Map<number, any>} [ids=new Map] The used map of ids to references.
+ * @param {Map<any, number>} [refs=new Map] The used map of references to ids.
+ * @returns {Heap<any>}
+ */
+var heap = (id = 0, ids = new Map, refs = new Map) => {
+  const next = i32(id);
+  return {
+    clear: () => {
+      ids.clear();
+      refs.clear();
+    },
+    id: ref => {
+      let uid = refs.get(ref);
+      if (uid === void 0) {
+        /* c8 ignore next */
+        while (ids.has(uid = next()));
+        ids.set(uid, ref);
+        refs.set(ref, uid);
+      }
+      return uid;
+    },
+    ref: id => ids.get(id),
+    unref: id => {
+      refs.delete(ids.get(id));
+      return ids.delete(id);
+    },
+  };
+};
+
+/**
+ * @param {number} timeout
+ * @returns {typeof import('../ts/memo.js').Memo}
+ */
+var memo = timeout => {
+  const entries = [];
+
+  const drop = i => {
+    const cached = entries.splice(i);
+    while (i < cached.length)
+      cached[i++].delete(cached[i++]);
+  };
+
+  const set = (self, key) => {
+    if (entries.push(self, key) < 3)
+      setTimeout(drop, timeout, 0);
+  };
+
+  return class Memo extends Map {
+    static keys = Symbol();
+    static proto = Symbol();
+
+    drop(key, value) {
+      if (key !== Memo.proto) super.delete(Memo.keys);
+      super.delete(key);
+      return value;
+    }
+
+    set(key, value) {
+      set(super.set(key, value), key);
+      return value;
+    }
+  }
+};
+
+/**
+ * @typedef {Object} RemoteOptions Optional utilities used to orchestrate local <-> remote communication.
+ * @property {Function} [reflect=identity] The function used to reflect operations via the remote receiver. All `Reflect` methods + `unref` are supported.
+ * @property {Function} [transform=identity] The function used to transform local values into simpler references that the remote side can understand.
+ * @property {Function} [released=identity] The function invoked when a reference is released.
+ * @property {boolean} [buffer=false] Optionally allows direct buffer deserialization breaking JSON compatibility.
+ * @property {number} [timeout=-1] Optionally allows remote values to be cached when possible for a `timeout` milliseconds value. `-1` means no timeout.
+ */
+
+/**
+ * @param {RemoteOptions} options
+ * @returns
+ */
+var remote = ({
+  reflect = identity,
+  transform = identity,
+  released = identity,
+  buffer = false,
+  timeout = -1,
+} = object) => {
+  const fromKeys = loopValues(fromKey);
+  const toKeys = loopValues(toKey);
+
+  // OBJECT, DIRECT, VIEW, REMOTE_ARRAY, REMOTE_OBJECT, REMOTE_FUNCTION, SYMBOL, BIGINT
+  const fromValue = value => {
+    if (!isArray(value)) return value;
+    const [t, v] = value;
+    if (t & REMOTE) return asProxy(t, v);
+    switch (t) {
+      case OBJECT: return global;
+      case DIRECT: return v;
+      case SYMBOL: return fromSymbol(v);
+      case BIGINT: return BigInt(v);
+      case VIEW: return fromView(v, buffer);
+      case BUFFER: return fromBuffer(v, buffer);
+      // there is no other case
+    }
+  };
+
+  const toValue = (value, cache = new Map) => {
+    switch (typeof value) {
+      case 'object': {
+        if (value === null) break;
+        if (value === globalThis) return globalTarget;
+        if (reflected in value) return reference;
+        let cached = cache.get(value);
+        if (!cached) {
+          const $ = transform(value);
+          if (indirect || !direct.has($)) {
+            if (isArray($)) {
+              const a = [];
+              cached = tv(ARRAY, a);
+              cache.set(value, cached);
+              for (let i = 0, length = $.length; i < length; i++)
+                a[i] = toValue($[i], cache);
+              return cached;
+            }
+            if (!isView($) && !($ instanceof ArrayBuffer) && toName($) === 'Object') {
+              const o = {};
+              cached = tv(OBJECT, o);
+              cache.set(value, cached);
+              // // the try/catch guards against WebAssembly opaque objects:
+              // // https://github.com/pyodide/pyodide/issues/5929#issuecomment-3377201964
+              // try { for (const _ in $) break; } catch { return cached }
+              for (const k in $) o[k] = toValue($[k], cache);
+              return cached;
+            }
+          }
+          cached = tv(DIRECT, $);
+          cache.set(value, cached);
+        }
+        return cached;
+      }
+      case 'function': {
+        if (reflected in value) return reference;
+        let cached = cache.get(value);
+        if (!cached) {
+          const $ = transform(value);
+          cached = tv(FUNCTION, id($));
+          cache.set(value, cached);
+        }
+        return cached;
+      }
+      case 'symbol': return tv(SYMBOL, toSymbol(value));
+    }
+    return value;
+  };
+
+  const toValues = loopValues(toValue);
+
+  const asProxy = (t, v) => {
+    let wr = weakRefs.get(v), proxy = wr?.deref();
+    if (!proxy) {
+      /* c8 ignore start */
+      if (wr) fr.unregister(wr);
+      /* c8 ignore stop */
+      if (t === REMOTE_FUNCTION)
+        proxy = new Proxy(callback, new FunctionHandler(t, v));
+      else
+        proxy = new Proxy(t === REMOTE_OBJECT ? object : array, new Handler(t, v));
+      wr = new WeakRef(proxy);
+      weakRefs.set(v, wr);
+      fr.register(proxy, v, wr);
+    }
+    return proxy;
+  };
+
+  /**
+   * Checks if the given value is a proxy created in the remote side.
+   * @param {any} value
+   * @returns {boolean}
+   */
+  const isProxy = value => {
+    switch (typeof value) {
+      case 'object': if (value === null) break;
+      case 'function': return reflected in value;
+    }
+    return false;
+  };
+
+  const memoize = -1 < timeout;
+  const Memo = /** @type {typeof import('./ts/memo.js').Memo} */(
+    memoize ? memo(timeout) : Map
+  );
+
+  class Handler {
+    constructor(t, v) {
+      this.t = t;
+      this.v = v;
+      if (memoize) this.$ = new Memo;
+    }
+
+    get(_, key) {
+      if (memoize && this.$.has(key)) return this.$.get(key);
+      const value = reflect(GET, this.v, toKey(key));
+      return memoize ?
+        (value[0] ?
+          this.$.set(key, fromValue(value[1])) :
+          fromValue(value[1])) :
+        fromValue(value)
+      ;
+    }
+
+    set(_, key, value) {
+      const result = reflect(SET, this.v, toKey(key), toValue(value));
+      return memoize ? this.$.drop(key, result) : result;
+    }
+
+    // TODO: should `in` operations be cached too?
+    has(_, prop) {
+      if (prop === reflected) {
+        reference = [this.t, this.v];
+        return true;
+      }
+      return reflect(HAS, this.v, toKey(prop));
+    }
+
+    _oK() { return fromKeys(reflect(OWN_KEYS, this.v), weakRefs) }
+    ownKeys(_) {
+      return memoize ?
+        (this.$.has(Memo.keys) ?
+          this.$.get(Memo.keys) :
+          this.$.set(Memo.keys, this._oK())) :
+        this._oK()
+      ;
+    }
+
+    // this would require a cache a part per each key or make
+    // the Cache code more complex for probably little gain
+    getOwnPropertyDescriptor(_, key) {
+      const descriptor = fromValue(reflect(GET_OWN_PROPERTY_DESCRIPTOR, this.v, toKey(key)));
+      if (descriptor) {
+        for (const k in descriptor)
+          descriptor[k] = fromValue(descriptor[k]);
+      }
+      return descriptor;
+    }
+
+    defineProperty(_, key, descriptor) {
+      const result = reflect(DEFINE_PROPERTY, this.v, toKey(key), toValue(descriptor));
+      return memoize ? this.$.drop(key, result) : result;
+    }
+
+    deleteProperty(_, key) {
+      const result = reflect(DELETE_PROPERTY, this.v, toKey(key));
+      return memoize ? this.$.drop(key, result) : result;
+    }
+
+    _gPO() { return fromValue(reflect(GET_PROTOTYPE_OF, this.v)) }
+    getPrototypeOf(_) {
+      /* c8 ignore start */
+      return memoize ?
+        (this.$.has(Memo.proto) ?
+          this.$.get(Memo.proto) :
+          this.$.set(Memo.proto, this._gPO())) :
+        this._gPO()
+      ;
+      /* c8 ignore stop */
+    }
+
+    setPrototypeOf(_, value) {
+      const result = reflect(SET_PROTOTYPE_OF, this.v, toValue(value));
+      return memoize ? this.$.drop(Memo.proto, result) : result;
+    }
+    // way less common than others to be cached
+    isExtensible(_) { return reflect(IS_EXTENSIBLE, this.v) }
+
+    // ⚠️ due shared proxies' targets this cannot be reflected
+    preventExtensions(_) { return false }
+  }
+
+  class FunctionHandler extends Handler {
+    construct(_, args) { return fromValue(reflect(CONSTRUCT, this.v, toValues(args))) }
+
+    apply(_, self, args) {
+      const map = new Map;
+      return fromValue(reflect(APPLY, this.v, toValue(self, map), toValues(args, map)));
+    }
+
+    get(_, key) {
+      switch (key) {
+        // skip obvious roundtrip cases
+        case 'apply': return (self, args) => this.apply(_, self, args);
+        case 'call': return (self, ...args) => this.apply(_, self, args);
+        default: return super.get(_, key);
+      }
+    }
+  }
+
+  let indirect = true, direct, reference;
+
+  const { apply } = Reflect;
+  const { id, ref, unref } = heap();
+  const weakRefs = new Map;
+  const reflected = Symbol('reflected-ffi');
+  const globalTarget = tv(OBJECT, null);
+  const global = new Proxy(object, new Handler(OBJECT, null));
+  const fr = new FinalizationRegistry(v => {
+    weakRefs.delete(v);
+    reflect(UNREF, v);
+  });
+
+  return {
+    /**
+     * The local global proxy reference.
+     * @type {unknown}
+     */
+    global,
+
+    isProxy,
+
+    /** @type {typeof assign} */
+    assign(target, ...sources) {
+      const asProxy = isProxy(target);
+      const assignment = assign(asProxy ? {} : target, ...sources);
+      if (asProxy) reflect(ASSIGN, reference[1], toValue(assignment));
+      return target;
+    },
+
+    /**
+     * Alows local references to be passed directly to the remote receiver,
+     * either as copy or serliazied values (it depends on the implementation).
+     * @template {WeakKey} T
+     * @param {T} value
+     * @returns {T}
+     */
+    direct(value) {
+      if (indirect) {
+        indirect = false;
+        direct = new WeakSet;
+      }
+      direct.add(value);
+      return value;
+    },
+
+    /**
+     * Evaluates elsewhere the given callback with the given arguments.
+     * This utility is similar to puppeteer's `page.evaluate` where the function
+     * content is evaluated in the local side and its result is returned.
+     * @param {Function} callback
+     * @param  {...any} args
+     * @returns {any}
+     */
+    evaluate: (callback, ...args) => fromValue(
+      reflect(EVALUATE, null, toJSONCallback(callback), toValues(args))
+    ),
+
+    /**
+     * @param {object} target
+     * @param  {...(string|symbol)} keys
+     * @returns {any[]}
+     */
+    gather(target, ...keys) {
+      const asProxy = isProxy(target);
+      const asValue = asProxy ? fromValue : (key => target[key]);
+      if (asProxy) keys = reflect(GATHER, reference[1], toKeys(keys, weakRefs));
+      for (let i = 0; i < keys.length; i++) keys[i] = asValue(keys[i]);
+      return keys;
+    },
+
+    /**
+     * Queries the given target for the given path.
+     * @param {any} target
+     * @param {string} path
+     * @returns {any}
+     */
+    query: (target, path) => (
+      isProxy(target) ?
+        fromValue(reflect(QUERY, reference[1], path)) :
+        query(target, path)
+    ),
+
+    /**
+     * The callback needed to resolve any local call. Currently only `apply` and `unref` are supported.
+     * Its returned value will be understood by the remote implementation
+     * and it is compatible with the structured clone algorithm.
+     * @param {number} method
+     * @param {number?} uid
+     * @param  {...any} args
+     * @returns
+     */
+    reflect: async (method, uid, ...args) => {
+      switch (method) {
+        case APPLY: {
+          const [context, params] = args;
+          for (let i = 0, length = params.length; i < length; i++)
+            params[i] = fromValue(params[i]);
+          return toValue(await apply(ref(uid), fromValue(context), params));
+        }
+        case UNREF: {
+          released(ref(uid));
+          return unref(uid);
+        }
+      }
+    },
+  };
+};
+
+/** @type {Function} */
+let module$1;
+
+if ('importScripts' in globalThis) {
+  let get;
+  const { promise, resolve } = withResolvers();
+  // @ts-ignore
+  const reflected = new URL(location).searchParams.get('reflected');
+  if (reflected === 'message') get = import(/* webpackIgnore: true */'./message-mK0eTb54.js');
+  else if (reflected === 'broadcast') get = import(/* webpackIgnore: true */'./broadcast-CKNplfox.js');
+  else if (reflected === 'xhr') get = import(/* webpackIgnore: true */'./xhr-CRJGE1xP.js');
+  else get = import(/* webpackIgnore: true */'./async-0Q0H4a_N.js');
+  module$1 = async options => {
+    const { data, ports } = await promise;
+    const { default: reflect } = await get;
+    const event = new Event('message');
+    // @ts-ignore
+    event.data = data;
+    // @ts-ignore
+    event.ports = ports;
+    dispatchEvent(event);
+    return reflect(options);
+  };
+  addEventListener('message', resolve, { once: true });
+}
+else if (native) {
+  if ('InstallTrigger' in globalThis) {
+    module$1 = (await import(/* webpackIgnore: true */'./broadcast-CbbtYobq.js')).default;
+  }
+  else {
+    module$1 = (await import(/* webpackIgnore: true */'./message-Cxjrx_su.js')).default;
+  }
+}
+else if (navigator.serviceWorker) {
+  module$1 = (await import(/* webpackIgnore: true */'./xhr-DSsSGsb-.js')).default;
+}
+else {
+  module$1 = (await import(/* webpackIgnore: true */'./async-DLrN8K6M.js').then(function (n) { return n.a; })).default;
+}
+
+var reflected = module$1;
+
+var worker$1 = async options => {
+  const target = create(null);
+  const send = await reflected({
+    ...options,
+    onsend: ([name, args]) => target[name](...args),
+  });
+  return new Proxy(target, {
+    get(target, name) {
+      // the curse of potentially awaiting proxies in the wild
+      // requires this ugly guard around `then`
+      if (name === 'then') return;
+      return target[name] ?? (target[name] = (...args) => send([name, args]));
+    },
+    // @ts-ignore
+    set(target, name, value) {
+      const ok = name !== 'then';
+      if (ok) target[name] = value;
+      return ok;
+    },
+  });
+};
+
+/**
+ * @param {import('../index.js').WorkerOptions & import('reflected-ffi/remote').RemoteOptions} options
+ */
+var worker = async options => {
+  const proxy = await worker$1(options);
+
+  const ffi = remote({
+    timeout: 0,
+    buffer: true,
+    ...options,
+    reflect: (...args) => proxy[MAIN](args),
+  });
+
+  proxy[WORKER] = ffi.reflect;
+
+  // @ts-ignore
+  ffi.ws = options?.ws?.(
+    // ondata
+    fn => {
+      proxy[DRIVER] = fn;
+    },
+    // send data
+    proxy[SOCKET]
+  );
+
+  return { ffi, proxy };
+};
+
+export { worker as default };

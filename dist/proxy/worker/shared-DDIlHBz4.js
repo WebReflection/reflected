@@ -1,1 +1,0 @@
-var r=(Promise.withResolvers||function(){var r,t,e=new this((e,o)=>{r=e,t=o});return{resolve:r,reject:t,promise:e}}).bind(Promise);const t=Object.create,e=2*Int32Array.BYTES_PER_ELEMENT;let o=!0;try{crypto.randomUUID()}catch(r){o=!1}const a=r=>r,s=o?()=>crypto.randomUUID():()=>(Date.now()+Math.random()).toString(36);export{e as b,t as c,a as i,s as r,r as w};

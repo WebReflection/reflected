@@ -1,1 +1,79 @@
-import{w as a,c as t}from"./shared-DDIlHBz4.js";import{n as e}from"./shared-array-buffer-cwdMr2mc.js";let s,r;if("importScripts"in globalThis){let t;const{promise:e,resolve:n}=a(),o=new URL(location).searchParams.get("reflected");s=o,t="message"===o?import("./message-BvU2dKHz.js"):"broadcast"===o?import("./broadcast-Bdt9gmj_.js"):"xhr"===o?import("./xhr-JKtROQ3y.js"):import("./async-fqI-s7gn.js"),r=async a=>{const{data:s,ports:r}=await e,{default:n}=await t,o=new Event("message");return o.data=s,o.ports=r,dispatchEvent(o),n(a)},addEventListener("message",n,{once:!0})}else e?"InstallTrigger"in globalThis?(s="broadcast",r=(await import("./broadcast-D7rjohJL.js")).default):(s="message",r=(await import("./message-DhtuceT9.js")).default):navigator.serviceWorker?(s="xhr",r=(await import("./xhr-CK-Z6L0B.js")).default):(s="async",r=(await import("./async-Do59YjcF.js").then(function(a){return a.a})).default);var n=r,o=async a=>{const e=t(null),s=await n({...a,onsend:([a,t])=>e[a](...t)});return new Proxy(e,{get(a,t){if("then"!==t)return a[t]??(a[t]=(...a)=>s([t,a]))},set(a,t,e){const s="then"!==t;return s&&(a[t]=e),s}})};export{s as channel,o as default};
+import { w as withResolvers, c as create } from './shared-DR7YYduq.js';
+import { n as native } from './shared-array-buffer-BQgQXQvC.js';
+
+/** @typedef {import('./main/shared.js').Options} MainOptions */
+/** @typedef {import('./worker/shared.js').Options} WorkerOptions */
+
+/** @type {string} */
+let channel;
+
+/** @type {Function} */
+let module$1;
+
+if ('importScripts' in globalThis) {
+  let get;
+  const { promise, resolve } = withResolvers();
+  // @ts-ignore
+  const reflected = new URL(location).searchParams.get('reflected');
+  channel = reflected;
+  if (reflected === 'message') get = import(/* webpackIgnore: true */'./message-Bots8UXM.js');
+  else if (reflected === 'broadcast') get = import(/* webpackIgnore: true */'./broadcast-fWsZlH8v.js');
+  else if (reflected === 'xhr') get = import(/* webpackIgnore: true */'./xhr-DAgmljtu.js');
+  else get = import(/* webpackIgnore: true */'./async-CZJaURwO.js');
+  module$1 = async options => {
+    const { data, ports } = await promise;
+    const { default: reflect } = await get;
+    const event = new Event('message');
+    // @ts-ignore
+    event.data = data;
+    // @ts-ignore
+    event.ports = ports;
+    dispatchEvent(event);
+    return reflect(options);
+  };
+  addEventListener('message', resolve, { once: true });
+}
+else if (native) {
+  if ('InstallTrigger' in globalThis) {
+    channel = 'broadcast';
+    module$1 = (await import(/* webpackIgnore: true */'./broadcast-DRVfswix.js')).default;
+  }
+  else {
+    channel = 'message';
+    module$1 = (await import(/* webpackIgnore: true */'./message-sej0J6k5.js')).default;
+  }
+}
+else if (navigator.serviceWorker) {
+  channel = 'xhr';
+  module$1 = (await import(/* webpackIgnore: true */'./xhr-CQDzS28h.js')).default;
+}
+else {
+  channel = 'async';
+  module$1 = (await import(/* webpackIgnore: true */'./async-DaSAye0a.js').then(function (n) { return n.a; })).default;
+}
+
+var reflected = module$1;
+
+var proxy = async options => {
+  const target = create(null);
+  const send = await reflected({
+    ...options,
+    onsend: ([name, args]) => target[name](...args),
+  });
+  return new Proxy(target, {
+    get(target, name) {
+      // the curse of potentially awaiting proxies in the wild
+      // requires this ugly guard around `then`
+      if (name === 'then') return;
+      return target[name] ?? (target[name] = (...args) => send([name, args]));
+    },
+    // @ts-ignore
+    set(target, name, value) {
+      const ok = name !== 'then';
+      if (ok) target[name] = value;
+      return ok;
+    },
+  });
+};
+
+export { channel, proxy as default };

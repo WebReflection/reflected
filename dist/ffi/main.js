@@ -1,1 +1,650 @@
-import{S as e,f as t,o as r,i as s,a as n,b as a,c as o,R as i,d as c,e as l,F as u,A as f,O as g,t as p,B as d,g as m,h as y,I as w,j as h,V as b,k as v,l as j,m as T,n as x,D as E,p as S,w as k,q as M,r as P}from"./shared-Cs1s8cy4.js";import{t as A}from"./global-B3nXXiRL.js";import{i as R}from"./i32-BkNtpHwD.js";import{n as B}from"./shared-array-buffer-cwdMr2mc.js";const I="M:"+e,L="W:"+e,O="S:"+e,U="D:"+e;let W=0;const $=W++,D=W++,F=W++,N=W++,q=W++,z=W++,V=W++,_=W++,K=W++,Y=W++,C=W++,G=W++,H=W++,J=W++,Q=W++;W++;const X=W++,Z=W++,ee=(e,r)=>[r?e:t(new Uint8Array(e)),e.resizable?e.maxByteLength:0],te=/\[('|")?(.+?)\1\]/g,re=(e,t)=>e?.[t];var se=(e,t)=>t.replace(te,".$2").split(".").reduce(re,e),ne=(e,...t)=>t.map(ae,e);function ae(e){return"string"==typeof e?se(this,e):this[e]}const oe=globalThis.Node||class{},{apply:ie,construct:ce,defineProperty:le,deleteProperty:ue,get:fe,getOwnPropertyDescriptor:ge,getPrototypeOf:pe,has:de,isExtensible:me,ownKeys:ye,set:we,setPrototypeOf:he}=Reflect;var be=({reflect:e=s,transform:t=s,remote:k=s,module:M=e=>import(e),buffer:P=!1,timeout:B=-1}=r)=>{const I=(t,r=new Map)=>{if(!o(t))return t;const[s,n]=t;switch(s){case g:{if(null===n)return globalThis;let e=r.get(t);if(!e){e=n,r.set(t,n);for(const e in n)n[e]=I(n[e],r)}return e}case f:return r.get(t)||(r.set(t,n),O(n,r));case u:{let t=Te.get(n),r=t?.deref();return r||(t&&Ee.unregister(t),r=function(...t){k.apply(this,t);for(let e=0,r=t.length;e<r;e++)t[e]=L(t[e]);return e(z,n,L(this),t).then(I)},t=new WeakRef(r),Te.set(n,t),Ee.register(r,n,t)),r}case c:return l(n);default:return s&i?ae(n):n}},L=e=>{switch(typeof e){case"object":{if(null===e)break;if(e===globalThis)return xe;const r=t(e);return ke&&Se.has(r)||r instanceof w?p(E,r):h(r)?p(b,((e,t)=>{const{BYTES_PER_ELEMENT:r,byteOffset:s,buffer:n,length:a}=e;return[A(e),ee(n,t),s,a!==(n.byteLength-s)/r?a:0]})(r,P)):r instanceof ArrayBuffer?p(v,ee(r,P)):p(o(r)?j:T,re(r))}case"function":return p(y,re(t(e)));case"symbol":return p(c,m(e));case"bigint":return p(d,e.toString())}return e},O=x(I),U=x(a),W=x(S),{clear:te,id:re,ref:ae,unref:be}=((e=0,t=new Map,r=new Map)=>{const s=R(e);return{clear:()=>{t.clear(),r.clear()},id:e=>{let n=r.get(e);if(void 0===n){for(;t.has(n=s()););t.set(n,e),r.set(e,n)}return n},ref:e=>t.get(e),unref:e=>(r.delete(t.get(e)),t.delete(e))}})(),ve=/^(?:[0-9]+|length)$/,je=-1<B,Te=new Map,xe=p(g,null),Ee=new FinalizationRegistry(t=>{Te.delete(t),e($,t)});let Se,ke=!1;return{assign:n,gather:ne,query:se,direct:e=>(ke||(ke=!0,Se=new WeakSet),Se.add(e),e),evaluate:(e,...t)=>ie(e,null,t),reflect(e,t,...r){const s=null===t,i=s?globalThis:ae(t);switch(e){case Y:{const e=a(r[0]),t=s&&"import"===e,n=t?M:fe(i,e),c=L(n);if(!je)return c;let l,u=t,f=i;if(!t&&!(f instanceof oe||o(f)&&"string"==typeof e&&ve.test(e)))if(e in i){for(;!(l=ge(f,e))&&(f=pe(f),f););u=!!l&&"value"in l}else u=!0;return[u,c]}case z:{const e=new Map;return L(ie(i,I(r[0],e),O(r[1],e)))}case X:return we(i,a(r[0]),I(r[1]));case H:return de(i,a(r[0]));case Q:return W(ye(i),Te);case V:return L(ce(i,O(r[0])));case C:{const e=ge(i,a(r[0]));if(e)for(const t in e)e[t]=L(e[t]);return e}case _:return le(i,a(r[0]),I(r[1]));case K:return ue(i,a(r[0]));case G:return L(pe(i));case Z:return he(i,I(r[0]));case D:return void n(i,I(r[0]));case F:{const e=I(r[0]),t=Function(`return(${e}).apply(null,arguments)`);return L(ie(t,null,O(r[1])))}case N:for(let e,t=0,s=(r=U(r[0],Te)).length;t<s;t++)e=r[t],r[t]=L("string"==typeof e?se(i,e):i[e]);return r;case q:return L(se(i,r[0]));case $:return be(t);case J:return me(i)}},terminate(){for(const e of Te.values())Ee.unregister(e);Te.clear(),te()}}};let ve;if("importScripts"in globalThis){let e;const{promise:t,resolve:r}=k(),s=new URL(location).searchParams.get("reflected");e="message"===s?import("./message-DW2TgKPr.js"):"broadcast"===s?import("./broadcast-CBUwPa0e.js"):"xhr"===s?import("./xhr-BkOoxiJZ.js"):import("./async-Dl9wCRDA.js"),ve=async r=>{const{data:s,ports:n}=await t,{default:a}=await e,o=new Event("message");return o.data=s,o.ports=n,dispatchEvent(o),a(r)},addEventListener("message",r,{once:!0})}else ve=B?"InstallTrigger"in globalThis?(await import("./broadcast-D7p6b88J.js")).default:(await import("./message-TyU9xCIl.js")).default:navigator.serviceWorker?(await import("./xhr-CasCWs_z.js")).default:(await import("./async-F0rxZjV9.js").then(function(e){return e.a})).default;var je=ve;var Te=async(e,t)=>{let r=0,s="";const n=t.debug??!1,a=P(null),o=await je(e,{...t,onsync:n?async([e,t])=>{s=e;try{return await(a[e]?.(...t))}finally{s=""}}:([e,t])=>a[e]?.(...t)});return M(o,{proxy:new Proxy(a,{get:n?(e,t)=>e[t]??(e[t]=async(...e)=>{s&&(r=setTimeout(console.warn,3e3,((e,t)=>`💀🔒 - main.${String(e)}() is invoking worker.${String(t)}()`)(s,t)));try{return await o.send([t,e])}finally{s="",clearTimeout(r)}}):(e,t)=>e[t]??(e[t]=(...e)=>o.send([t,e])),set:(e,t,r)=>{const s="then"!==t;return s&&(e[t]=r),s}})})};const xe=new TextEncoder,Ee=new Uint8Array(4),Se=new DataView(Ee.buffer),ke=(e,t,r)=>{const s=new Uint8Array(5+r.length);return s.set(e,0),s[4]=t,s.set(r,5),s};var Me=async(e,t)=>{const r=await Te(e,t),{proxy:s}=r,{terminate:n}=r,a=()=>{o?.close(),i.terminate(),n.call(r)};let o;if(t?.ws){const[e,r]=((e=e=>e)=>{const t=new Map,r=R();return[()=>{let s;do{s=e(r())}while(t.has(s));const n=k();return t.set(s,n),[s,n.promise]},(e,r,s)=>{const n=t.get(e);t.delete(e),s?n?.reject(s):n?.resolve(r)}]})(Number),[n,i]=e(),c=s[U];o=new WebSocket(t?.ws),o.onerror=console.error,o.onclose=a,o.onopen=async()=>{Se.setInt32(0,0,!0),o.send(ke(Ee,0,xe.encode(O))),r(n)},o.onmessage=async e=>{const t=new Uint8Array(await e.data.arrayBuffer()),s=t.slice(5),n=t[4];if(Ee.set(t,0),1===n)r(Se.getInt32(0,!0),s);else if(2===n){const e=await c(s);o.send(ke(t.subarray(0,4),2,e))}},s[O]=async t=>{await i;const[r,s]=e();return Se.setInt32(0,r,!0),o.send(ke(Ee,1,t)),s}}const i=be({timeout:0,buffer:!0,...t,reflect:s[L]});return s[I]=e=>i.reflect(...e),M(r,{ffi:i,terminate:a})};export{Me as default};
+import { S as SHARED_CHANNEL, f as fromArray, o as object, i as identity, a as assign, b as fromKey, c as isArray, R as REMOTE, d as SYMBOL, e as fromSymbol, F as FUNCTION, A as ARRAY, O as OBJECT, t as tv, B as BIGINT, g as toSymbol, h as REMOTE_FUNCTION, I as ImageData, j as isView, V as VIEW, k as BUFFER, l as REMOTE_ARRAY, m as REMOTE_OBJECT, n as loopValues, D as DIRECT, p as toKey, w as withResolvers, q as assign$1, r as create } from './shared-5Nhc4gvB.js';
+import { t as toTag } from './global-LTfnrHcF.js';
+import { i as i32 } from './i32-Cw-Rqr5y.js';
+import { n as native } from './shared-array-buffer-BQgQXQvC.js';
+
+// Main thread <-> Worker thread
+const MAIN = 'M:' + SHARED_CHANNEL;
+const WORKER = 'W:' + SHARED_CHANNEL;
+
+// Worker thread <-> Server thread
+const SOCKET = 'S:' + SHARED_CHANNEL;
+const DRIVER = 'D:' + SHARED_CHANNEL;
+
+let i = 0;
+
+// extras
+const UNREF = i++;
+const ASSIGN = i++;
+const EVALUATE = i++;
+const GATHER = i++;
+const QUERY = i++;
+
+// traps
+const APPLY = i++;
+const CONSTRUCT = i++;
+const DEFINE_PROPERTY = i++;
+const DELETE_PROPERTY = i++;
+const GET = i++;
+const GET_OWN_PROPERTY_DESCRIPTOR = i++;
+const GET_PROTOTYPE_OF = i++;
+const HAS = i++;
+const IS_EXTENSIBLE = i++;
+const OWN_KEYS = i++;
+i++;
+const SET = i++;
+const SET_PROTOTYPE_OF = i++;
+
+/**
+ * @param {ArrayBufferLike} value
+ * @param {boolean} direct
+ * @returns {BufferDetails}
+ */
+const toBuffer = (value, direct) => [
+  direct ? value : fromArray(new Uint8Array(value)),
+  //@ts-ignore
+  value.resizable ? value.maxByteLength : 0
+];
+
+/**
+ * @param {ArrayBufferView} value
+ * @param {boolean} direct
+ * @returns {ViewDetails}
+ */
+const toView = (value, direct) => {
+  //@ts-ignore
+  const { BYTES_PER_ELEMENT, byteOffset, buffer, length } = value;
+  return [
+    toTag(value),
+    toBuffer(buffer, direct),
+    byteOffset,
+    length !== ((buffer.byteLength - byteOffset) / BYTES_PER_ELEMENT) ? length : 0,
+  ];
+};
+
+const brackets = /\[('|")?(.+?)\1\]/g;
+
+const keys = (target, key) => target?.[key];
+
+/**
+ * Parses the given path and returns the value at the given target.
+ * @param {any} target
+ * @param {string} path
+ * @returns {any}
+ */
+var query = (target, path) => path.replace(brackets, '.$2').split('.').reduce(keys, target);
+
+/**
+ * Parses each given path and returns each value at the given target.
+ * @param {any} target
+ * @param  {...(string|symbol)[]} keys
+ * @returns {any[]}
+ */
+var gather = (target, ...keys) => keys.map(asResult, target);
+
+function asResult(key) {
+  return typeof key === 'string' ? query(this, key) : this[key];
+}
+
+/**
+ * @template T
+ * @typedef {Object} Heap
+ * @property {() => void} clear
+ * @property {(ref:T) => number} id
+ * @property {(id:number) => T} ref
+ * @property {(id:number) => boolean} unref
+ */
+
+/**
+ * Create a heap-like utility to hold references in memory.
+ * @param {number} [id=0] The initial `id` which is `0` by default.
+ * @param {Map<number, any>} [ids=new Map] The used map of ids to references.
+ * @param {Map<any, number>} [refs=new Map] The used map of references to ids.
+ * @returns {Heap<any>}
+ */
+var heap = (id = 0, ids = new Map, refs = new Map) => {
+  const next = i32(id);
+  return {
+    clear: () => {
+      ids.clear();
+      refs.clear();
+    },
+    id: ref => {
+      let uid = refs.get(ref);
+      if (uid === void 0) {
+        /* c8 ignore next */
+        while (ids.has(uid = next()));
+        ids.set(uid, ref);
+        refs.set(ref, uid);
+      }
+      return uid;
+    },
+    ref: id => ids.get(id),
+    unref: id => {
+      refs.delete(ids.get(id));
+      return ids.delete(id);
+    },
+  };
+};
+
+// import DEBUG from './utils/debug.js';
+
+
+const Node = globalThis.Node || class Node {};
+
+const {
+  apply,
+  construct,
+  defineProperty,
+  deleteProperty,
+  get,
+  getOwnPropertyDescriptor,
+  getPrototypeOf,
+  has,
+  isExtensible,
+  ownKeys,
+  set,
+  setPrototypeOf,
+} = Reflect;
+
+/**
+ * @typedef {Object} LocalOptions Optional utilities used to orchestrate local <-> remote communication.
+ * @property {Function} [reflect=identity] The function used to reflect operations via the remote receiver. Currently only `apply` and `unref` are supported.
+ * @property {Function} [transform=identity] The function used to transform local values into simpler references that the remote side can understand.
+ * @property {Function} [remote=identity] The function used to intercept remote invokes *before* these happen. Usable to sync `events` or do other tasks.
+ * @property {Function} [module] The function used to import modules when remote asks to `import(...)` something.
+ * @property {boolean} [buffer=false] Optionally allows direct buffer serialization breaking JSON compatibility.
+ * @property {number} [timeout=-1] Optionally allows remote values to be cached when possible for a `timeout` milliseconds value. `-1` means no timeout.
+ */
+
+/**
+ * @param {LocalOptions} options
+ * @returns
+ */
+var local = ({
+  reflect = identity,
+  transform = identity,
+  remote = identity,
+  module = name => import(name),
+  buffer = false,
+  timeout = -1,
+} = object) => {
+  // received values arrive via postMessage so are compatible
+  // with the structured clone algorithm
+  const fromValue = (value, cache = new Map) => {
+    if (!isArray(value)) return value;
+    const [t, v] = value;
+    switch (t) {
+      case OBJECT: {
+        if (v === null) return globalThis;
+        let cached = cache.get(value);
+        if (!cached) {
+          cached = v;
+          cache.set(value, v);
+          for (const k in v) v[k] = fromValue(v[k], cache);
+        }
+        return cached;
+      }
+      case ARRAY: {
+        return cache.get(value) || (
+          cache.set(value, v),
+          fromValues(v, cache)
+        );
+      }
+      case FUNCTION: {
+        let wr = weakRefs.get(v), fn = wr?.deref();
+        if (!fn) {
+          /* c8 ignore start */
+          if (wr) fr.unregister(wr);
+          /* c8 ignore stop */
+          fn = function (...args) {
+            remote.apply(this, args);
+
+            // values reflected asynchronously are not passed stringified
+            // because it makes no sense to use Atomics and SharedArrayBuffer
+            // to transfer these ... yet these must reflect the current state
+            // on this local side of affairs.
+            for (let i = 0, length = args.length; i < length; i++)
+              args[i] = toValue(args[i]);
+
+            const result = reflect(APPLY, v, toValue(this), args);
+            return result.then(fromValue);
+          };
+          wr = new WeakRef(fn);
+          weakRefs.set(v, wr);
+          fr.register(fn, v, wr);
+        }
+        return fn;
+      }
+      case SYMBOL: return fromSymbol(v);
+      default: return (t & REMOTE) ? ref(v) : v;
+    }
+  };
+
+  // OBJECT, DIRECT, VIEW, BUFFER, REMOTE_ARRAY, REMOTE_OBJECT, REMOTE_FUNCTION, SYMBOL, BIGINT
+  /**
+   * Converts values into TypeValue pairs when these
+   * are not JSON compatible (symbol, bigint) or
+   * local (functions, arrays, objects, globalThis).
+   * @param {any} value the current value
+   * @returns {any} the value as is or its TypeValue counterpart
+   */
+  const toValue = value => {
+    switch (typeof value) {
+      case 'object': {
+        if (value === null) break;
+        if (value === globalThis) return globalTarget;
+        const $ = transform(value);
+        return ((hasDirect && direct.has($)) || $ instanceof ImageData) ?
+          tv(DIRECT, $) : (
+          isView($) ?
+            tv(VIEW, toView($, buffer)) : (
+              $ instanceof ArrayBuffer ?
+                tv(BUFFER, toBuffer($, buffer)) :
+                tv(isArray($) ? REMOTE_ARRAY : REMOTE_OBJECT, id($))
+            )
+        );
+      }
+      case 'function': return tv(REMOTE_FUNCTION, id(transform(value)));
+      case 'symbol': return tv(SYMBOL, toSymbol(value));
+      case 'bigint': return tv(BIGINT, value.toString());
+    }
+    return value;
+  };
+
+  const fromValues = loopValues(fromValue);
+  const fromKeys = loopValues(fromKey);
+  const toKeys = loopValues(toKey);
+
+  const { clear, id, ref, unref } = heap();
+
+  const arrayKey = /^(?:[0-9]+|length)$/;
+  const memoize = -1 < timeout;
+  const weakRefs = new Map;
+  const globalTarget = tv(OBJECT, null);
+  const fr = new FinalizationRegistry(v => {
+    weakRefs.delete(v);
+    reflect(UNREF, v);
+  });
+
+  let hasDirect = false, direct;
+
+  return {
+    assign,
+    gather,
+    query,
+
+    /**
+     * Alows local references to be passed directly to the remote receiver,
+     * either as copy or serliazied values (it depends on the implementation).
+     * @template {WeakKey} T
+     * @param {T} value
+     * @returns {T}
+     */
+    direct(value) {
+      if (!hasDirect) {
+        // if (DEBUG) console.debug('DIRECT');
+        hasDirect = true;
+        direct = new WeakSet;
+      }
+      direct.add(value);
+      return value;
+    },
+
+    /**
+     * Provide a portable API that just invokes the given callback with the given arguments.
+     * @param {Function} callback
+     * @param  {...any} args
+     * @returns {any}
+     */
+    evaluate: (callback, ...args) => apply(callback, null, args),
+
+    /**
+     * This callback reflects locally every remote call.
+     * It accepts TypeValue pairs but it always returns a string
+     * to make it possible to use Atomics and SharedArrayBuffer.
+     * @param {number} method
+     * @param {number?} uid
+     * @param  {...any} args
+     * @returns
+     */
+    reflect(method, uid, ...args) {
+      // if (DEBUG) console.debug(method === UNREF ? 'GC' : 'ROUNDTRIP');
+      const isGlobal = uid === null;
+      const target = isGlobal ? globalThis : ref(uid);
+      // the order is by most common use cases
+      switch (method) {
+        case GET: {
+          const key = fromKey(args[0]);
+          const asModule = isGlobal && key === 'import';
+          const value = asModule ? module : get(target, key);
+          const result = toValue(value);
+          if (!memoize) return result;
+          let cache = asModule, t = target, d;
+          if (!asModule && !(
+            // avoid caching DOM related stuff (all accessors)
+            (t instanceof Node) ||
+            // avoid also caching Array length or index accessors
+            (isArray(t) && typeof key === 'string' && arrayKey.test(key))
+          )) {
+            // cache unknown properties but ...
+            if (key in target) {
+              // ... avoid caching accessors!
+              while (!(d = getOwnPropertyDescriptor(t, key))) {
+                t = getPrototypeOf(t);
+                /* c8 ignore start */
+                // this is an emergency case for "unknown" values
+                if (!t) break;
+                /* c8 ignore stop */
+              }
+              cache = !!d && 'value' in d;
+            }
+            // accessing non existent properties could be repeated
+            // for no reason whatsoever and it gets removed once
+            // the property is eventually set so ...
+            else cache = true;
+          }
+          return [cache, result];
+        }
+        case APPLY: {
+          const map = new Map;
+          return toValue(apply(target, fromValue(args[0], map), fromValues(args[1], map)));
+        }
+        case SET: return set(target, fromKey(args[0]), fromValue(args[1]));
+        case HAS: return has(target, fromKey(args[0]));
+        case OWN_KEYS: return toKeys(ownKeys(target), weakRefs);
+        case CONSTRUCT: return toValue(construct(target, fromValues(args[0])));
+        case GET_OWN_PROPERTY_DESCRIPTOR: {
+          const descriptor = getOwnPropertyDescriptor(target, fromKey(args[0]));
+          if (descriptor) {
+            for (const k in descriptor)
+              descriptor[k] = toValue(descriptor[k]);
+          }
+          return descriptor;
+        }
+        case DEFINE_PROPERTY: return defineProperty(target, fromKey(args[0]), fromValue(args[1]));
+        case DELETE_PROPERTY: return deleteProperty(target, fromKey(args[0]));
+        case GET_PROTOTYPE_OF: return toValue(getPrototypeOf(target));
+        case SET_PROTOTYPE_OF: return setPrototypeOf(target, fromValue(args[0]));
+        case ASSIGN: {
+          assign(target, fromValue(args[0]));
+          return;
+        }
+        case EVALUATE: {
+          const body = fromValue(args[0]);
+          const fn = Function(`return(${body}).apply(null,arguments)`);
+          return toValue(apply(fn, null, fromValues(args[1])));
+        }
+        case GATHER: {
+          args = fromKeys(args[0], weakRefs);
+          for (let k, i = 0, length = args.length; i < length; i++) {
+            k = args[i];
+            args[i] = toValue(typeof k === 'string' ? query(target, k) : target[k]);
+          }
+          return args;
+        }
+        case QUERY: return toValue(query(target, args[0]));
+        case UNREF: return unref(uid);
+        case IS_EXTENSIBLE: return isExtensible(target);
+      }
+    },
+
+    /**
+     * Terminates the local side of the communication,
+     * erasing and unregistering all the cached references.
+     */
+    terminate() {
+      for (const wr of weakRefs.values()) fr.unregister(wr);
+      weakRefs.clear();
+      clear();
+    },
+  };
+};
+
+//@ts-check
+
+
+/**
+ * @template V
+ * @callback Resolve
+ * @param {V?} [value]
+ * @returns {void}
+ */
+
+/**
+ * @callback Reject
+ * @param {any?} [error]
+ * @returns {void}
+ */
+
+/**
+ * @template V
+ * @typedef {object} Resolvers
+ * @prop {Promise<V>} promise
+ * @prop {Resolve<V>} resolve
+ * @prop {Reject} reject
+ */
+
+/**
+ * @template K,V
+ * @typedef {() => [K, Promise<V>]} Next
+ */
+
+/**
+ * @template K,V
+ * @callback Resolver
+ * @param {K} uid
+ * @param {V?} [value]
+ * @param {any?} [error]
+ */
+
+/**
+ * @template K,V
+ * @typedef {[Next<K,V>, Resolver<K,V>]} NextResolver
+ */
+
+/**
+ * @template K,V
+ * @param {(id: number) => K} [as]
+ * @returns
+ */
+var nextResolver = (as = (id => /** @type {K} */(id))) => {
+  /** @type {Map<K,Resolvers<V>>} */
+  const map = new Map;
+  const next = i32();
+  return /** @type {NextResolver<K,V>} */([
+    /** @type {Next<K,V>} */
+    () => {
+      let uid;
+      do { uid = as(next()); }
+      while (map.has(uid));
+      const wr = /** @type {Resolvers<V>} */(/** @type {unknown} */(withResolvers()));
+      map.set(uid, wr);
+      return [uid, wr.promise];
+    },
+    /** @type {Resolver<K,V>} */
+    (uid, value, error) => {
+      const wr = map.get(uid);
+      map.delete(uid);
+      if (error) wr?.reject(error);
+      else wr?.resolve(value);
+    },
+  ]);
+};
+
+/** @type {Function} */
+let module$1;
+
+if ('importScripts' in globalThis) {
+  let get;
+  const { promise, resolve } = withResolvers();
+  // @ts-ignore
+  const reflected = new URL(location).searchParams.get('reflected');
+  if (reflected === 'message') get = import(/* webpackIgnore: true */'./message-2Dqj3uZ3.js');
+  else if (reflected === 'broadcast') get = import(/* webpackIgnore: true */'./broadcast-uydYnG6E.js');
+  else if (reflected === 'xhr') get = import(/* webpackIgnore: true */'./xhr-CKhf21P8.js');
+  else get = import(/* webpackIgnore: true */'./async-CbwemiL2.js');
+  module$1 = async options => {
+    const { data, ports } = await promise;
+    const { default: reflect } = await get;
+    const event = new Event('message');
+    // @ts-ignore
+    event.data = data;
+    // @ts-ignore
+    event.ports = ports;
+    dispatchEvent(event);
+    return reflect(options);
+  };
+  addEventListener('message', resolve, { once: true });
+}
+else if (native) {
+  if ('InstallTrigger' in globalThis) {
+    module$1 = (await import(/* webpackIgnore: true */'./broadcast-DIucqhL0.js')).default;
+  }
+  else {
+    module$1 = (await import(/* webpackIgnore: true */'./message-Co0Oew7f.js')).default;
+  }
+}
+else if (navigator.serviceWorker) {
+  module$1 = (await import(/* webpackIgnore: true */'./xhr-Be-3qHQb.js')).default;
+}
+else {
+  module$1 = (await import(/* webpackIgnore: true */'./async-D6Zj6i_Q.js').then(function (n) { return n.a; })).default;
+}
+
+var reflected = module$1;
+
+/**
+ * @param {string | symbol} syncing
+ * @param {string | symbol} name
+ * @returns
+ */
+const deadlock = (syncing, name) => `💀🔒 - main.${String(syncing)}() is invoking worker.${String(name)}()`;
+
+var main$1 = async (url, options) => {
+  let t = 0, syncing = '';
+  const debug = options.debug ?? false;
+  const target = create(null);
+  const worker = await reflected(url, {
+    ...options,
+    onsync: (
+      debug ?
+        (async ([name, args]) => {
+          syncing = name;
+          try { return await target[name]?.(...args) }
+          finally { syncing = ''; }
+        }) :
+        (([name, args]) => target[name]?.(...args))
+    )
+  });
+  return assign$1(worker, {
+    proxy: new Proxy(target, {
+      get: debug ?
+        (target, name) => (
+          target[name] ??
+          (target[name] = async (...args) => {
+            if (syncing) t = setTimeout(console.warn, 3e3, deadlock(syncing, name));
+            try { return await worker.send([name, args]) }
+            finally {
+              syncing = '';
+              clearTimeout(t);
+            }
+          })
+        ) :
+        ((target, name) => (
+          target[name] ?? (target[name] = (...args) => worker.send([name, args]))
+        )),
+      set: (target, name, value) => {
+        const ok = name !== 'then';
+        if (ok) target[name] = value;
+        return ok;
+      },
+    }),
+  });
+};
+
+const BYTES = 4; // Int32Array.BYTES_PER_ELEMENT;
+const encoder = new TextEncoder;
+const uid8View = new Uint8Array(BYTES);
+const uid32Data = new DataView(uid8View.buffer);
+
+/**
+ * 
+ * @param {Uint8Array} prefix
+ * @param {0 | 1 | 2} type
+ * @param {Uint8Array} data
+ * @returns
+ */
+const asUint8View = (prefix, type, data) => {
+  const ui8a = new Uint8Array(BYTES + 1 + data.length);
+  ui8a.set(prefix, 0);
+  ui8a[BYTES] = type;
+  ui8a.set(data, BYTES + 1);
+  return ui8a;
+};
+
+/**
+ * @param {string} url
+ * @param {import('../index.js').MainOptions & import('reflected-ffi/local').LocalOptions} options
+ */
+var main = async (url, options) => {
+  const worker = await main$1(url, options);
+  const { proxy } = worker;
+
+  const { terminate: end } = worker;
+  const terminate = () => {
+    ws?.close();
+    ffi.terminate();
+    end.call(worker);
+  };
+
+  let ws;
+  if (options?.ws) {
+    const [next, resolve] = nextResolver(Number);
+    const [uid, opened] = next();
+    const worker = proxy[DRIVER];
+    ws = new WebSocket(options?.ws);
+    ws.onerror = console.error;
+    ws.onclose = terminate;
+    ws.onopen = async () => {
+      uid32Data.setInt32(0, 0, true);
+      ws.send(asUint8View(uid8View, 0, encoder.encode(SOCKET)));
+      resolve(uid);
+    };
+    ws.onmessage = async event => {
+      const view = new Uint8Array(await event.data.arrayBuffer());
+      // TODO: try subarray instead
+      const data = view.slice(BYTES + 1);
+      const type = view[BYTES];
+      uid8View.set(view.subarray(0, BYTES), 0);
+      if (type === 1)
+        resolve(uid32Data.getInt32(0, true), data);
+      else if (type === 2) {
+        const result = await worker(data);
+        ws.send(asUint8View(view.subarray(0, BYTES), 2, result));
+      }
+    };
+    proxy[SOCKET] = async data => {
+      await opened;
+      const [uid, promise] = next();
+      uid32Data.setInt32(0, uid, true);
+      ws.send(asUint8View(uid8View, 1, data));
+      return promise;
+    };
+  }
+
+  const ffi = local({
+    timeout: 0,
+    buffer: true,
+    ...options,
+    // @ts-ignore
+    reflect: proxy[WORKER],
+  });
+
+  // @ts-ignore
+  proxy[MAIN] = args => ffi.reflect(...args);
+
+  return assign$1(worker, { ffi, terminate });
+};
+
+export { main as default };

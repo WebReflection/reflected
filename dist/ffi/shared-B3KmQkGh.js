@@ -1,49 +1,9 @@
-//@ts-check
+import { s as identity, S as SHARED_CHANNEL, w as withResolvers, e as toSymbol, g as isView, b as isArray$1, x as push, r as byteOffset } from './shared-CjWXp6-D.js';
+import { i as i32 } from './i32-Cw-Rqr5y.js';
+import { p as UNDEFINED, d as dv, b as BIGINT, u as u8a8, S as SYMBOL, T as TRUE, g as FALSE, q as encoder$1, l as STRING, B as BLOB, F as FILE, h as REGEXP, j as ImageData, i as IMAGE_DATA, E as ERROR, k as SET, M as MAP, D as DATE, n as BUFFER, V as VIEW, N as NULL, U as UI8, o as NUMBER, f as NAN, Z as ZERO, c as N_ZERO, e as N_INFINITY, I as INFINITY, R as RECURSION, a as BIGUINT, O as OBJECT, A as ARRAY } from './views-DBBYng9N.js';
+import { a as toTag } from './global-DzpOeFX2.js';
 
-/**
- * @template T
- * @typedef {{promise: Promise<T>, resolve: (value: T) => void, reject: (reason?: any) => void}} Resolvers
- */
-
-// fallback for Android WebView
-//@ts-ignore
-const withResolvers = Promise.withResolvers || function withResolvers() {
-  var a, b, c = new this((resolve, reject) => {
-    a = resolve;
-    b = reject;
-  });
-  return {resolve: a, reject: b, promise: c};
-};
-
-/**
- * @template T
- * @type {() => Resolvers<T>}
- */
-var withResolvers$1 = withResolvers.bind(Promise);
-
-// @ts-check
-
-/**
- * @param {number} [start]
- * @returns {() => number}
- */
-var i32 = start => {
-  const i32 = new Int32Array(1);
-  return () => i32[0]++;
-};
-
-// shorter: 'fc260aad-4404-43b8-ae9d-2c06554bb294'.split('-').map(s => parseInt(s, 16)).reduce((p, c) => p + c).toString(16)
-var SHARED_CHANNEL = 'fc260aad-4404-43b8-ae9d-2c06554bb294';
-
-const byteOffset = Int32Array.BYTES_PER_ELEMENT * 2;
-try {
-  crypto.randomUUID();
-} catch (_) {
-}
-
-const identity = value => value;
-
-const { isArray: isArray$2 } = Array;
+const { isArray } = Array;
 
 class Sender extends Worker {
   #next;
@@ -55,7 +15,7 @@ class Sender extends Worker {
     this.#requests = new Map;
     super.addEventListener('message', async event => {
       const { data } = event;
-      if (isArray$2(data) && data.length === 2 && data[0] === SHARED_CHANNEL) {
+      if (isArray(data) && data.length === 2 && data[0] === SHARED_CHANNEL) {
         event.stopImmediatePropagation();
         event.preventDefault();
         const [id, payload] = data[1];
@@ -68,55 +28,12 @@ class Sender extends Worker {
 
   send(payload, ...rest) {
     const id = this.#next();
-    const { promise, resolve } = withResolvers$1();
+    const { promise, resolve } = withResolvers();
     this.#requests.set(id, resolve);
     super.postMessage([SHARED_CHANNEL, [id, payload]], ...rest);
     return promise;
   }
 }
-
-let i$1 = 0;
-
-const FALSE = i$1++;
-const TRUE = i$1++;
-
-const UNDEFINED = i$1++;
-const NULL = i$1++;
-
-const NUMBER = i$1++;
-const UI8 = i$1++;
-const NAN = i$1++;
-const INFINITY = i$1++;
-const N_INFINITY = i$1++;
-const ZERO = i$1++;
-const N_ZERO = i$1++;
-
-const BIGINT = i$1++;
-const BIGUINT = i$1++;
-
-const STRING = i$1++;
-
-const SYMBOL = i$1++;
-
-const ARRAY = i$1++;
-const BUFFER = i$1++;
-const DATE = i$1++;
-const ERROR = i$1++;
-const MAP = i$1++;
-const OBJECT = i$1++;
-const REGEXP = i$1++;
-const SET = i$1++;
-const VIEW = i$1++;
-
-const IMAGE_DATA = i$1++;
-const BLOB = i$1++;
-const FILE = i$1++;
-
-const RECURSION = i$1++;
-
-class Never {}
-
-const ImageData = globalThis.ImageData || /** @type {typeof ImageData} */(Never);
 
 // This is an Array facade for the encoder.
 
@@ -184,76 +101,6 @@ class Stack {
     this.v.set(value, offset);
   }
 }
-
-/** @type {Map<symbol, string>} */
-const symbols = new Map(
-  Reflect.ownKeys(Symbol).map(
-    key => [Symbol[key], `@${String(key)}`]
-  )
-);
-
-/**
- * @param {symbol} value
- * @param {string} description
- * @returns {string}
- */
-const asSymbol = (value, description) => (
-  description === void 0 ? '?' :
-  (Symbol.keyFor(value) === void 0 ? `!${description}` : `#${description}`)
-);
-
-/**
- * Extract the value from a pair of type and value.
- * @param {string} name
- * @returns {symbol}
- */
-const fromSymbol = name => {
-  switch (name[0]) {
-    case '@': return Symbol[name.slice(1)];
-    case '#': return Symbol.for(name.slice(1));
-    case '!': return Symbol(name.slice(1));
-    default: return Symbol();
-  }
-};
-
-/**
- * Create the name of a symbol.
- * @param {symbol} value
- * @returns {string}
- */
-const toSymbol = value => symbols.get(value) || asSymbol(value, value.description);
-
-const defineProperty = Object.defineProperty;
-
-const isArray$1 = Array.isArray;
-
-const isView = ArrayBuffer.isView;
-
-const MAX_ARGS = 0x7FFF;
-
-/**
- * @param {number[]} output
- * @param {Uint8Array} value 
- */
-const push = (output, value) => {
-  for (let $ = output.push, i = 0, length = value.length; i < length; i += MAX_ARGS)
-    $.apply(output, value.subarray(i, i + MAX_ARGS));
-};
-
-const decoder$1 = new TextDecoder;
-
-const encoder$1 = new TextEncoder;
-
-const buffer = new ArrayBuffer(8);
-const dv = new DataView(buffer);
-const u8a8 = new Uint8Array(buffer);
-
-const { getPrototypeOf } = Object;
-const { construct } = Reflect;
-const { toStringTag } = Symbol;
-
-const toTag = (ref, name = ref[toStringTag]) =>
-  name in globalThis ? name : toTag(construct(getPrototypeOf(ref.constructor),[0]));
 
 //@ts-check
 
@@ -478,7 +325,7 @@ const encoder = ({ byteOffset = 0, Array = Stack } = {}) => (value, buffer) => {
     length;
 };
 
-const { notify, store: store$1 } = Atomics;
+const { notify, store } = Atomics;
 
 const SAB = ({
   initByteLength = 1024,
@@ -520,23 +367,28 @@ const bootstrap = Worker => {
    * @returns
    */
   return (scriptURL, options) => {
-    const { promise, resolve } = withResolvers$1();
+    const { promise, resolve } = withResolvers();
     // @ts-ignore
     new Worker(scriptURL, options, resolve);
     return /** @type {Promise<T>} */(promise);
   };
 };
 
-const handler$1 = (sab, options, useAtomics) => {
+const handler = (sab, options, useAtomics) => {
   const i32a = new Int32Array(sab);
   const encode = (options.encoder ?? encoder)({ byteOffset });
   const onsync = options.onsync ?? identity;
 
-  const resolve = (length => {
-      store$1(i32a, 1, length);
-      store$1(i32a, 0, 1);
+  const resolve = useAtomics ?
+    (length => {
+      store(i32a, 1, length);
+      store(i32a, 0, 1);
       notify(i32a, 0);
-    }) ;
+    }) :
+    (length => {
+      i32a[1] = length;
+      i32a[0] = 1;
+    });
 
   const process = result => {
     const length = encode(result, sab);
@@ -570,274 +422,4 @@ const url = (scriptURL, reflected, options) => {
   return [url, { ...options, type: 'module' }];
 };
 
-const CHANNEL = 'message';
-
-var main = bootstrap(class Worker extends Sender {
-  constructor(scriptURL, options, resolve) {
-    const { port1, port2 } = new MessageChannel;
-    const sab = SAB(options);
-    port1.addEventListener(CHANNEL, handler$1(sab, options));
-    port1.start();
-    super(...url(scriptURL, CHANNEL, options));
-    super.addEventListener(CHANNEL, () => resolve(this), { once: true });
-    super.postMessage(post(sab, options), [port2]);
-  }
-
-  get channel() {
-    return CHANNEL;
-  }
-});
-
-//@ts-check
-
-
-/** @typedef {Map<number, any>} Cache */
-
-/**
- * @param {Cache} cache
- * @param {number} index
- * @param {any} value
- * @returns {any}
- */
-const $ = (cache, index, value) => {
-  cache.set(index, value);
-  return value;
-};
-
-/**
- * @param {Uint8Array} input
- */
-const number = input => {
-  u8a8[0] = input[i++];
-  u8a8[1] = input[i++];
-  u8a8[2] = input[i++];
-  u8a8[3] = input[i++];
-  u8a8[4] = input[i++];
-  u8a8[5] = input[i++];
-  u8a8[6] = input[i++];
-  u8a8[7] = input[i++];
-};
-
-/**
- * @param {Uint8Array} input
- * @returns {number}
- */
-const size = input => {
-  u8a8[0] = input[i++];
-  u8a8[1] = input[i++];
-  u8a8[2] = input[i++];
-  u8a8[3] = input[i++];
-  return dv.getUint32(0, true);
-};
-
-/**
- * @param {Uint8Array} input
- * @param {Cache} cache
- * @returns {any}
- */
-const deflate = (input, cache) => {
-  switch (input[i++]) {
-    case NUMBER: {
-      number(input);
-      return dv.getFloat64(0, true);
-    }
-    case UI8: return input[i++];
-    case OBJECT: {
-      const object = $(cache, i - 1, {});
-      for (let j = 0, length = size(input); j < length; j++)
-        object[deflate(input, cache)] = deflate(input, cache);
-      return object;
-    }
-    case ARRAY: {
-      const array = $(cache, i - 1, []);
-      for (let j = 0, length = size(input); j < length; j++)
-        array.push(deflate(input, cache));
-      return array;
-    }
-    case VIEW: {
-      const index = i - 1;
-      const name = deflate(input, cache);
-      return $(cache, index, new globalThis[name](deflate(input, cache)));
-    }
-    case BUFFER: {
-      const index = i - 1;
-      const length = size(input);
-      return $(cache, index, input.slice(i, i += length).buffer);
-    }
-    case STRING: {
-      const index = i - 1;
-      const length = size(input);
-      // this could be a subarray but it's not supported on the Web and
-      // it wouldn't work with arrays instead of typed arrays.
-      return $(cache, index, decoder$1.decode(input.slice(i, i += length)));
-    }
-    case DATE: {
-      return $(cache, i - 1, new Date(deflate(input, cache)));
-    }
-    case MAP: {
-      const map = $(cache, i - 1, new Map);
-      for (let j = 0, length = size(input); j < length; j++)
-        map.set(deflate(input, cache), deflate(input, cache));
-      return map;
-    }
-    case SET: {
-      const set = $(cache, i - 1, new Set);
-      for (let j = 0, length = size(input); j < length; j++)
-        set.add(deflate(input, cache));
-      return set;
-    }
-    case ERROR: {
-      const index = i - 1;
-      const name = deflate(input, cache);
-      const message = deflate(input, cache);
-      const stack = deflate(input, cache);
-      const Class = globalThis[name] || Error;
-      const error = new Class(message);
-      return $(cache, index, defineProperty(error, 'stack', { value: stack }));
-    }
-    /* c8 ignore start */
-    case IMAGE_DATA: {
-      const index = i - 1;
-      const data = deflate(input, cache);
-      const width = deflate(input, cache);
-      const height = deflate(input, cache);
-      const colorSpace = deflate(input, cache);
-      const pixelFormat = deflate(input, cache);
-      const settings = { colorSpace, pixelFormat };
-      return $(cache, index, new ImageData(data, width, height, settings));
-    }
-    /* c8 ignore stop */
-    case REGEXP: {
-      const index = i - 1;
-      const source = deflate(input, cache);
-      const flags = deflate(input, cache);
-      return $(cache, index, new RegExp(source, flags));
-    }
-    case FALSE: return false;
-    case TRUE: return true;
-    case NAN: return NaN;
-    case INFINITY: return Infinity;
-    case N_INFINITY: return -Infinity;
-    case ZERO: return 0;
-    case N_ZERO: return -0;
-    case NULL: return null;
-    case BIGINT: return (number(input), dv.getBigInt64(0, true));
-    case BIGUINT: return (number(input), dv.getBigUint64(0, true));
-    case SYMBOL: return fromSymbol(deflate(input, cache));
-    case RECURSION: return cache.get(size(input));
-    case BLOB: {
-      const index = i - 1;
-      const type = deflate(input, cache);
-      const size = deflate(input, cache);
-      return $(cache, index, new Blob([input.slice(i, i += size)], { type }));
-    }
-    case FILE: {
-      const index = i - 1;
-      const name = deflate(input, cache);
-      const lastModified = deflate(input, cache);
-      const blob = deflate(input, cache);
-      return $(cache, index, new File([blob], name, { type: blob.type, lastModified }));
-    }
-    // this covers functions too
-    default: return undefined;
-  }
-};
-
-let i = 0;
-
-/**
- * @param {Uint8Array} value
- * @returns {any}
- */
-const decode = value => {
-  i = 0;
-  return deflate(value, new Map);
-};
-
-/**
- * @param {{ byteOffset?: number }} [options]
- * @returns {(length: number, buffer: ArrayBufferLike) => any}
- */
-const decoder = ({ byteOffset = 0 } = {}) => (length, buffer) => decode(
-  new Uint8Array(buffer, byteOffset, length)
-);
-
-const { isArray } = Array;
-
-var sender = options => {
-  const onsend = options.onsend ?? identity;
-  addEventListener('message', async event => {
-    const { data } = event;
-    if (isArray(data) && data[0] === SHARED_CHANNEL) {
-      event.stopImmediatePropagation();
-      event.preventDefault();
-      const [id, payload] = data[1];
-      postMessage([SHARED_CHANNEL, [id, await onsend(payload)]]);
-    }
-  });
-  return options;
-};
-
-const { load, store, wait } = Atomics;
-
-/**
- * @typedef {Object} Options
- * @property {(payload: Int32Array) => unknown} [onsync] transforms the resulting `Int32Array` from *main* thread into a value usable within the worker.
- * @property {(payload: unknown) => unknown |Promise<unknown>} onsend invoked to define what to return to the *main* thread when it calls `worker.send(payload)`.
- * @property {import('reflected-ffi/decoder').decoder} [decoder] defines the decoder function to use to decode the result from the SharedArrayBuffer.
- */
-
-/**
- * @param {MessageChannel | BroadcastChannel} channel
- * @param {Int32Array} i32a
- * @param {Options} options
- * @returns {(payload: unknown, ...rest: unknown[]) => unknown}
- */
-const handle = (channel, i32a, options) => {
-  const decode = (options.decoder ?? decoder)({ byteOffset });
-  const onsync = options.onsync ?? identity;
-  const { buffer } = i32a;
-  return (payload, ...rest) => {
-    // @ts-ignore
-    channel.postMessage(payload, ...rest);
-    wait(i32a, 0, 0);
-    store(i32a, 0, 0);
-    const length = load(i32a, 1);
-    return onsync(length ? decode(length, buffer) : void 0);
-  };
-};
-
-/**
- * 
- * @param {Promise<[SharedArrayBuffer, Options, MessageChannel | BroadcastChannel]>} promise
- * @param {(event:MessageEvent) => void} listener
- * @returns
- */
-const handler = (promise, listener) => {
-  addEventListener('message', listener, { once: true });
-  /**
-   * @param {Options} options
-   * @returns
-   */
-  return options => promise.then(
-    ([sab, main, channel]) => {
-      postMessage(1);
-      return handle(channel, new Int32Array(sab), sender({ ...main, ...options }));
-    }
-  );
-};
-
-const { promise, resolve } = withResolvers$1();
-
-const channel = 'message';
-
-var worker = handler(
-  promise,
-  ({ data: [sab, main], ports: [channel] }) => resolve([sab, main, channel])
-);
-
-var message = (
-  'importScripts' in globalThis ? worker : main
-);
-
-export { channel, message as default };
+export { Sender as S, SAB as a, bootstrap as b, handler as h, post as p, url as u };

@@ -60,7 +60,7 @@ export default async (url, options) => {
       // TODO: try subarray instead
       const data = view.slice(BYTES + 1);
       const type = view[BYTES];
-      uid8View.set(view, 0);
+      uid8View.set(view.subarray(0, BYTES), 0);
       if (type === 1)
         resolve(uid32Data.getInt32(0, true), data);
       else if (type === 2) {

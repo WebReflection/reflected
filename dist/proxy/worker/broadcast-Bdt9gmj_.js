@@ -1,1 +1,0 @@
-import{w as a}from"./shared-DDIlHBz4.js";import{h as r}from"./shared-QrUiXPgc.js";import"./sender-CWhM7QKB.js";import"./channel-DQBWE7_E.js";const{promise:s,resolve:e}=a(),o="broadcast";var t=r(s,({data:[a,r,s]})=>e([a,r,new BroadcastChannel(s)]));export{o as channel,t as default};
