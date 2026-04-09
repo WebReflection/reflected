@@ -18,7 +18,7 @@ if ('importScripts' in globalThis) {
   channel = reflected;
   if (reflected === 'message') get = import(/* webpackIgnore: true */'./message-Bots8UXM.js');
   else if (reflected === 'broadcast') get = import(/* webpackIgnore: true */'./broadcast-fWsZlH8v.js');
-  else if (reflected === 'xhr') get = import(/* webpackIgnore: true */'./xhr-DAgmljtu.js');
+  else if (reflected === 'xhr') get = import(/* webpackIgnore: true */'./xhr-PD-LRKFf.js');
   else get = import(/* webpackIgnore: true */'./async-CZJaURwO.js');
   module$1 = async options => {
     const { data, ports } = await promise;

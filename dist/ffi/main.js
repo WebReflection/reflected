@@ -482,7 +482,7 @@ if ('importScripts' in globalThis) {
   const reflected = new URL(location).searchParams.get('reflected');
   if (reflected === 'message') get = import(/* webpackIgnore: true */'./message-2Dqj3uZ3.js');
   else if (reflected === 'broadcast') get = import(/* webpackIgnore: true */'./broadcast-uydYnG6E.js');
-  else if (reflected === 'xhr') get = import(/* webpackIgnore: true */'./xhr-CKhf21P8.js');
+  else if (reflected === 'xhr') get = import(/* webpackIgnore: true */'./xhr-jR69__mg.js');
   else get = import(/* webpackIgnore: true */'./async-CbwemiL2.js');
   module$1 = async options => {
     const { data, ports } = await promise;

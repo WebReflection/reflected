@@ -3,6 +3,7 @@ import { decoder } from 'reflected-ffi/decoder';
 import i32 from 'weak-id/i32';
 
 import sender from './sender.js';
+import { identity } from '../shared.js';
 
 const { parse, stringify } = JSON;
 
@@ -21,6 +22,7 @@ const handle = (channel, options) => {
   const next = i32();
   const decode = (options.decoder ?? decoder)({ byteOffset: 0 });
   const { serviceWorker } = options;
+  const onsync = options.onsync ?? identity;
   return (payload, ...rest) => {
     const id = next();
     // @ts-ignore
@@ -30,7 +32,7 @@ const handle = (channel, options) => {
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.send(stringify([id, channel]));
     const { length, buffer } = new Uint8Array(parse(xhr.responseText));
-    return options.onsync(length ? decode(length, buffer) : void 0);
+    return onsync(length ? decode(length, buffer) : void 0);
   };
 };
 

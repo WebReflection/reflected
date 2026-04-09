@@ -1,7 +1,7 @@
-import { w as withResolvers } from './with-resolvers-DsO_nhbc.js';
-import { s as sender, d as decoder } from './sender-BSx3lj4w.js';
+import { w as withResolvers, i as identity } from './shared-DR7YYduq.js';
+import { s as sender, d as decoder } from './sender-D5Lm-DmC.js';
 import { i as i32 } from './i32-UV5fM9Tw.js';
-import './shared-Ccm1cPah.js';
+import './channel-NcnPEVL4.js';
 
 const { parse, stringify } = JSON;
 
@@ -20,6 +20,7 @@ const handle = (channel, options) => {
   const next = i32();
   const decode = (options.decoder ?? decoder)({ byteOffset: 0 });
   const { serviceWorker } = options;
+  const onsync = options.onsync ?? identity;
   return (payload, ...rest) => {
     const id = next();
     // @ts-ignore
@@ -29,7 +30,7 @@ const handle = (channel, options) => {
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.send(stringify([id, channel]));
     const { length, buffer } = new Uint8Array(parse(xhr.responseText));
-    return options.onsync(length ? decode(length, buffer) : void 0);
+    return onsync(length ? decode(length, buffer) : void 0);
   };
 };
 
