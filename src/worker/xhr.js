@@ -20,9 +20,11 @@ export const channel = 'xhr';
 const handle = (channel, options) => {
   const bc = new BroadcastChannel(channel);
   const next = i32();
-  const decode = (options.decoder ?? decoder)({ byteOffset: 0 });
+
   const { serviceWorker } = options;
   const onsync = options.onsync ?? identity;
+  const decode = (options.decoder ?? decoder)({ byteOffset: 0 });
+
   return (payload, ...rest) => {
     const id = next();
     // @ts-ignore
